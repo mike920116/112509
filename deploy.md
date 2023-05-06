@@ -19,3 +19,5 @@
 查看 pid：`cat django.pid`
 
 停下背景中的伺服器：`kill -9 <pid>`（`<pid>` 替換成 django.pid 中的號碼）
+
+將所有靜態文件統一複製到 STATIC_ROOT 中，此時會有一個staticfiles的資料夾：`python manage.py collectstatic`
