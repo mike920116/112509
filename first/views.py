@@ -9,6 +9,7 @@ from first.forms import (
     CommentDeleteConfirmForm,
 )
 def post_list(request):
+    100 / 0  # 故意引發一個錯誤來測試 log 的效果
     posts = Post.objects.prefetch_related("tags")
     if "tag_id" in request.GET:
         posts = posts.filter(tags__id=request.GET["tag_id"])
