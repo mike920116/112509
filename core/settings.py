@@ -107,9 +107,9 @@ DATABASES = {
 
         # 2023/5/6 利用docker連上mysql
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_dev',  # 資料庫名稱
+        'NAME': '112509',  # 資料庫名稱
         'USER': 'root',
-        'PASSWORD': 'pwd',
+        'PASSWORD': '0000',
         'HOST': '127.0.0.1',  #這裡的ip從虛擬環境下指令：docker inspect mysql
         'PORT': '3306',
     }
