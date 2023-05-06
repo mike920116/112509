@@ -1,6 +1,8 @@
 *.pid
 # 2023/5/6表示staticfiles資料夾的東西不要備份
+
 staticfiles
+media
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
