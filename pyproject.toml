@@ -10,6 +10,8 @@ python = "^3.11"
 django = "^4.1.7"
 django-bootstrap5 = "^23.1"
 django-extensions = "^3.2.1"
+# mysqlclient = "^2.1.1" poetry add mysqlclient
+# gunicorn = "^20.1.0" poetry add gunicorn
 
 
 [tool.poetry.group.dev.dependencies]
