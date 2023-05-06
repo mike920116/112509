@@ -12,6 +12,12 @@ django-bootstrap5 = "^23.1"
 django-extensions = "^3.2.1"
 # mysqlclient = "^2.1.1" poetry add mysqlclient
 # gunicorn = "^20.1.0" poetry add gunicorn
+# whitenoise = "^6.4.0" poetry add whitenoise
+# pillow = "^9.5.0" poetry add pillow 
+mysqlclient = "^2.1.1"
+gunicorn = "^20.1.0"
+whitenoise = "^6.4.0"
+pillow = "^9.5.0"
 
 
 [tool.poetry.group.dev.dependencies]
