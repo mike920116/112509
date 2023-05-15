@@ -2,6 +2,8 @@
 
 https://www.canva.com/design/DAFi9KNu0us/EtnRyGR3ac2RWAk4UR3UuA/edit
 
+## 相關指令
+
 **請確保虛擬環境啟動 `poetry shell`**
 
 建立 poetry 專案（產生 pyproject.toml 檔案）：`poetry init`
