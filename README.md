@@ -1,6 +1,8 @@
-## 專題報告網址/canva
+## 專題報告網址/canva/雲端硬碟
 
 https://www.canva.com/design/DAFi9KNu0us/EtnRyGR3ac2RWAk4UR3UuA/edit
+
+https://docs.google.com/presentation/d/1BZkNn-r-JS2RVdJm6Q-kase9S6ClFJqt/edit?usp=share_link&ouid=103009423811719214799&rtpof=true&sd=true
 
 ## 相關指令
 
