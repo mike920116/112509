@@ -95,8 +95,8 @@ def signup(request):
 
     form = UserCreationForm()
 
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+    if request.method == 'GET':
+        form = UserCreationForm(request.GET)
         if form.is_valid():
             form.save()
             messages.success(request, "註冊帳號成功")
