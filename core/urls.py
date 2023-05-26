@@ -30,6 +30,11 @@ from first.views import (
     comment_delete,
     signup
 )
+# 2023/05/26
+# admin/的內容
+admin.site.site_header = '管理員後台'
+admin.site.site_header = '管理員後台'
+admin.site.index_title = '網站管理'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
