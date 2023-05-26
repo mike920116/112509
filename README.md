@@ -44,6 +44,7 @@ https://docs.google.com/presentation/d/1BZkNn-r-JS2RVdJm6Q-kase9S6ClFJqt/edit?us
 
 ## 參考資料
 Template Tags: <https://docs.djangoproject.com/en/4.2/ref/templates/builtins/>
+
 相關模組安裝教學: <https://hackmd.io/@arthurc0102/SkqJ2GGx3#/1/2>
 
 ## 佈署
