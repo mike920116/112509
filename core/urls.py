@@ -28,12 +28,13 @@ from first.views import (
     post_comment,
     comment_update,
     comment_delete,
+    signup
 )
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('my-path/', my_path),
+    path('signup/', signup),
     path('add/<int:n1>/<int:n2>/', add),
     path('minus/<int:n1>/<int:n2>/', minus),
     path('multiplied_by/<int:n1>/<int:n2>/', multiplied_by),
