@@ -52,7 +52,7 @@ Template Tags: <https://docs.djangoproject.com/en/4.2/ref/templates/builtins/>
 
 ## 瀏覽器網址
 
-登入畫面：http://127.0.0.1:8000/admin/
+管理員後台登入畫面：http://127.0.0.1:8000/admin/
 
 文章列表畫面：http://127.0.0.1:8000/post-list/
 
