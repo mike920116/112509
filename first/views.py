@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login as auth_login
 
 from first.models import Post, Comment
 from first.forms import (
@@ -91,15 +92,28 @@ def comment_delete(request, comment_id):
 
     return render(request, "comment_delete.html", {"form": form})
 
+
 def signup(request):
-
-    form = UserCreationForm()
-
-    if request.method == 'GET':
-        form = UserCreationForm(request.GET)
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, "註冊帳號成功")
-            # return redirect("post_detail", comment.post_id)
+            return redirect('post_list')  # 將此行修改為你的視圖名稱或URL
+    else:
+        form = UserCreationForm()
+    
+    return render(request, 'signup.html', {'form': form})
 
-    return render(request, "signup.html", {"form": form})
+def login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST) #我們使用了 AuthenticationForm 表單來處理登入的相關表單驗證和登入操作。
+        if form.is_valid():
+            user = form.get_user()
+            auth_login(request, user) # 如果表單驗證成功，則使用 auth_login 函數將用戶登入，並顯示成功訊息。
+            messages.success(request, "登入成功")
+            return redirect('post_list')  # 將此行修改為你視圖名稱或URL
+    else:
+        form = AuthenticationForm()
+    
+    return render(request, 'login.html', {'form': form})
