@@ -39,6 +39,7 @@ admin.site.index_title = '網站管理'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('my-path/', my_path),
+    # 使用者註冊畫面
     path('signup/', signup),
     path('add/<int:n1>/<int:n2>/', add),
     path('minus/<int:n1>/<int:n2>/', minus),
