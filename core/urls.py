@@ -28,7 +28,8 @@ from first.views import (
     post_comment,
     comment_update,
     comment_delete,
-    signup
+    signup,
+    login,
 )
 # 2023/05/26
 # admin/的內容
@@ -40,7 +41,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('my-path/', my_path),
     # 使用者註冊畫面
-    path('signup/', signup),
+    path('signup/', signup, name='signup'),
+    # 使用者登入畫面
+    path('login/', login, name='login'),
     path('add/<int:n1>/<int:n2>/', add),
     path('minus/<int:n1>/<int:n2>/', minus),
     path('multiplied_by/<int:n1>/<int:n2>/', multiplied_by),
