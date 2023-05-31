@@ -14,7 +14,7 @@
   {% comment %} 寬度 {% endcomment %}
     <div class="col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
         {% if post.image %}
-          <img src="{{ post.image.url }}" alt="{{ post.title }}" loading="lazy" >
+          <img src="{{ post.image.url }}" class="img-thumbnail" alt="{{ post.title }}" loading="lazy">
         {% endif %}
       <div class="card">
         <div class="card-body">
