@@ -103,16 +103,16 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         # 2023/4/29 sqlite3
-         'ENGINE': 'django.db.backends.sqlite3',
-         'NAME': BASE_DIR / 'db.sqlite3',
+        #  'ENGINE': 'django.db.backends.sqlite3',
+        #  'NAME': BASE_DIR / 'db.sqlite3',
 
         # 2023/5/6 利用docker連上mysql
-        # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': '112-112509',  # 資料庫名稱
-        # 'USER': '112509',
-        # 'PASSWORD': '@Imd112509',
-        # 'HOST': '140.131.114.242',  #這裡的ip從虛擬環境下指令：docker inspect mysql
-        # 'PORT': '3306',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': '112-112509',  # 資料庫名稱
+        'USER': '112509',
+        'PASSWORD': '@Imd112509',
+        'HOST': '140.131.114.242',  #這裡的ip從虛擬環境下指令：docker inspect mysql
+        'PORT': '3306',
     }
 }
 
