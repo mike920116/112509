@@ -1,98 +1,56 @@
+{%load static%}
 {% block body %}
 <!DOCTYPE html>
-<html>
+<html lang="UTF-8">
 <head>
-    <style>
-      body {
-        box-sizing: border-box;
-      }
-      .title{
-        width: 271px;
-        height: 44px;
-
-        font-family: 'Montserrat';
-        font-style: normal;
-        font-weight: 600;
-        font-size: 36px;
-        line-height: 44px;
-        /* identical to box height */
-        text-align: center;
-        color: #000000;
-      }
-      .container-fluid {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 0px;
-        gap: 20px;
-        width: 380px;
-        height: 347px;
-        flex: none;
-        order: 1;
-        flex-grow: 0;
-      }
-      .input-group{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        padding: 14px 173px;
-        gap: 10px;
-
-        width: 380px;
-        height: 48px;
-
-        background: #FFFFFF;
-        border: 1px solid #D1D1D1;
-        border-radius: 50px;
-        flex: none;
-        order: 2;
-        flex-grow: 0;
-
-      }
-      .btn btn-primary mt-3{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        padding: 14px 154px;
-        gap: 10px;
-        width: 230px;
-        height: 48px;
-        background: #A9A9A9;
-        border-radius: 50px;
-      }
-
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登入</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/login.css' %}"/>
 </head>
-<div class="row">
-  <div class="col-md-12">
-    <div class="title">
-    <h1>登入帳號</h1>
+<body>
+    <div class="section-login">
+        <div class="banner">
+            <img src="{% static 'images/LOGO.png' %}">
+        </div>
+
+        <div class="wrap">
+            <form>
+                <div>
+                    <input class="form-item" type="text" name="email" id="email" placeholder="電子郵件">
+                    <div class="message" id="email-message"></div>
+                </div>
+                <div>
+                    <input class="form-item" type="password" name="password" id="password" placeholder="密碼">
+                    <div class="message" id="password-message"></div>
+                </div>
+                <label class="checkbox"><span style="color:#808080;">記住我</span>
+                  <input type="checkbox" id="remember-me">
+                  <span class="checkmark"></span>
+                </label>
+                <div class="form-item button" onclick="userLogin()">
+                    <p>登入</p>
+                </div>
+                <div class="text-item">
+                    <span>還沒有帳號嗎？&ensp;</span>
+                    <a class="text-strong" href="/signup">註冊</a>
+                </div>
+            </form>
+        </div>
+
     </div>
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <form role="form" action="{% url 'login' %}" method="POST">
-          {% csrf_token %}
-          <form class="container-fluid">
-            <div class="input-group">
-              <span class="input-group-text" id="InputUsername">使用者帳號：</span>
-              <input type="uname" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="InputUsername">
-            </div>
-            <div class="input-group mt-3">
-              <span class="input-group-text" id="InputPassword">密碼輸入：</span>
-              <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="InputPassword">
-            </div>
-            <button type="submit" class="btn btn-primary mt-3">登入</button>
-            <hr />
-            沒有註冊嗎？ <a href="signup.html" >點擊這裡 </a> 或是回到 <a href="index.html">主頁</a> 
-          </form>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-</body>
-</html>
+    <script>
+        $(() => {
+            if (localStorage.checkbox && localStorage.checbox !== '') {
+                $('#remember-me').attr('checked', 'checked');
+                $('#email').val(localStorage.email);
+            } else {
+                $('#remember-me').removeAttr('checked');
+                $('#email').val('');
+            }
+        })
+    </script>
 {% endblock body %}
