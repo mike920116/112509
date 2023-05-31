@@ -25,3 +25,7 @@ parts/
 sdist/
 var/
 wheels/
+
+core/__pycache__
+first/__pycache__
+first/migrations/__pycache__
