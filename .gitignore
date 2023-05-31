@@ -5,6 +5,10 @@
 staticfiles
 media
 
+core/__pycache__
+first/__pycache__
+first/migrations/__pycache__
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -25,7 +29,3 @@ parts/
 sdist/
 var/
 wheels/
-
-core/__pycache__
-first/__pycache__
-first/migrations/__pycache__
