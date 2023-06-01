@@ -45,3 +45,12 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+#2023/5/31
+class Userlogin(models.Model):
+    email = models.CharField(max_length=64, unique=True)
+    password = models.CharField(max_length=128)
+    # 其他需要儲存的使用者資訊
+
+    def __str__(self):
+        return self.email
