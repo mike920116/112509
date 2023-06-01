@@ -27,4 +27,4 @@ class UserLoginAdmin(admin.ModelAdmin):
 # 2023/06/01
 @admin.register(Signup)
 class SignupAdmin(admin.ModelAdmin):
-    list_display = ("id", "fname", "uname", "email")
+    list_display = ("id", "fname", "uname", "email", "password")
