@@ -26,23 +26,29 @@
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
+                <style>
+                        .text-bg-primary {
+                            color: #000 !important;
+                            background-color: #7B7B7B !important;
+                          }
+                    </style>
                 <ul class="navbar-nav">
                     
                     <!-- 如果使用者登入就會出現if裡面的東西（要記得在結尾加上 endif）-->
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/About">About</a></li>
+                    <!--<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/About">About</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/experience">Experience</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/education">Education</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/skills">Skills</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/interests">Interests</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/education">Education</a></li>-->
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/topic">Topic</a></li>
+                        <ul style="list-style-type: none;">
+                                <li><a href="/education" style="color: #e6d4cc">數學類</a></li>
+                                <li><a href="" style="color: #e6d4cc">數學類</a></li>
+                                <li><a href="" style="color: #e6d4cc">數學類</a></li>
+                            </ul>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/course">Course</a></li>
 
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="/awards">Awards</a>
-                        <ul style="list-style-type: none;">
-                            <li><a href="" style="color: #e6d4cc">數學類</a></li>
-                            <li><a href="" style="color: #e6d4cc">數學類</a></li>
-                            <li><a href="" style="color: #e6d4cc">數學類</a></li>
-                        </ul>
+                        <a class="nav-link js-scroll-trigger" href="/answer">Answer</a>
                     </li>
                     {% endif %}
                 </ul>

@@ -129,7 +129,7 @@ def login(request):
                     request.session.set_expiry(120)  # 設定 session 120 秒後過期
                 messages.success(request, "登入成功")
                 #登入後跳去哪個html
-                return redirect('about')
+                return redirect('topic')
             else:
                 messages.error(request, "登入失敗，請檢查用戶名和密碼")
     else:
@@ -137,24 +137,24 @@ def login(request):
 
     return render(request, 'login.html', {'form': form})
 
-def about(request):
-    return render(request, 'about.html')
+# def about(request):
+#     return render(request, 'about.html')
 
-def experience(request):
-    return render(request, 'experience.html')
+# def experience(request):
+#     return render(request, 'experience.html')
 
 def education(request):
     return render(request, 'education.html')
 
-def skills(request):
-    return render(request, 'skills.html')
+def topic(request):
+    return render(request, 'topic.html')
 
-def awards(request):
-    return render(request, 'awards.html')
+def course(request):
+    return render(request, 'course.html')
 
-def interests(request):
-    return render(request, 'interests.html')
+def answer(request):
+    return render(request, 'answer.html')
 
 def logout(request):
     auth_logout(request)
-    return redirect('about')
+    return redirect('topic')

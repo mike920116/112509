@@ -6656,10 +6656,10 @@ textarea.form-control-lg {
   content: "";
 }
 
-.text-bg-primary {
+/*.text-bg-primary {
   color: #000 !important;
-  background-color: RGBA(189, 93, 56, var(--bs-bg-opacity, 1)) !important;
-}
+  background-color: RGBA(123, 123, 123, var(--bs-bg-opacity, 1)) !important;
+}*/
 
 .text-bg-secondary {
   color: #fff !important;
