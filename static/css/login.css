@@ -180,7 +180,7 @@ a {
 .section-login .message.error{
     color: #FA8072;
 }
-
+/*如果是用min去設定就代表這個為最小尺寸，如果>768px就會套用下列的程式*/
 @media screen and (min-width: 768px) {
     body {
         font-size: 16px;

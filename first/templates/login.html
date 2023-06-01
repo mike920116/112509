@@ -18,13 +18,18 @@
         </div>
 
         <div class="wrap">
-            <form>
+            <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
                 <div>
                     <h1>不要心灰意code</h1>
                 </div>
-                <div>
+                {% comment %} <div>
                     <input class="form-item" type="text" name="email" id="email" placeholder="電子郵件">
                     <div class="message" id="email-message"></div>
+                </div> {% endcomment %}
+                <div>
+                    <input class="form-item" type="text" name="username" id="username" placeholder="使用者帳號">
+                    <div class="message" id="username-message"></div>
                 </div>
                 <div>
                     <input class="form-item" type="password" name="password" id="password" placeholder="密碼">
@@ -34,19 +39,20 @@
                   <input type="checkbox" id="remember_me">
                   <span class="checkmark"></span>
                 </label>
-                <div class="form-item button" onclick="userLogin()">
-                    <p>登入</p>
-                </div>
+                <br/>
+                <button type="submit" class="form-item button">
+                    登入
+                </button>
                 <div class="text-item">
                     <span>還沒有帳號嗎？&ensp;</span>
-                    <a class="text-strong" href="\signup">註冊</a>
+                    <a class="text-strong" href="/signup">註冊</a>
                 </div>
             </form>
         </div>
 
     </div>
     <script>
-        $(() => {
+        {% comment %} $(() => {
             if (localStorage.checkbox && localStorage.checbox !== '') {
                 $('#remember-me').attr('checked', 'checked');
                 $('#email').val(localStorage.email);
@@ -54,6 +60,6 @@
                 $('#remember-me').removeAttr('checked');
                 $('#email').val('');
             }
-        })
+        }) {% endcomment %}
     </script>
 {% endblock body %}

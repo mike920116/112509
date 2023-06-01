@@ -30,6 +30,12 @@ from first.views import (
     comment_delete,
     signup,
     login,
+    about,
+    experience,
+    education,
+    interests,
+    skills,
+    awards,
 )
 # 2023/05/26
 # admin/的內容
@@ -54,6 +60,13 @@ urlpatterns = [
     path('post-update/<int:post_id>', post_update, name='post_update'),
     path('post-delete/<int:post_id>/', post_delete, name='post_delete'),
     path("post-comment/<int:post_id>/", post_comment, name="post_comment"),
+    path('about/', about, name='about'),
+    path('experience/', experience, name='experience'),
+    path('education/', education, name='education'),
+    path('interests/', interests, name='interests'),
+    path('skills/', skills, name='skills'),
+    path('awards/', awards, name='awards'),
+    
     #--------留言
     path('comment-update/<int:comment_id>', comment_update, name='comment_update'),
     path('comment-delete/<int:comment_id>/', comment_delete, name='comment_delete'),

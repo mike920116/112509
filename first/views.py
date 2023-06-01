@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
 
 from first.models import Post, Comment
 from first.forms import (
@@ -107,27 +108,49 @@ def signup(request):
 
 def login(request):
     if request.method == 'POST':
+        print(request.POST)
         form = AuthenticationForm(request, data=request.POST) #我們使用了 AuthenticationForm 表單來處理登入的相關表單驗證和登入操作。
+        
         if form.is_valid():
-            email = form.cleaned_data['email']
+            username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            remember_me = form.cleaned_data['remember_me']
+            # remember_me = form.cleaned_data['remember_me']
+            remember_me = request.POST.get('remember_me')
 
             # 使用 Django 內建的 authenticate 函數進行驗證
-            user = authenticate(request, email=email, password=password)
-
+            user = authenticate(request, username=username, password=password)
+            print('user', user)
             if user is not None:
                 # 使用 Django 內建的 login 函數進行登入
-                login(request, user)
+                auth_login(request, user)
                 if remember_me:
                     request.session.set_expiry(0)  # 設定 session 永久保存
                 else:
                     request.session.set_expiry(120)  # 設定 session 120 秒後過期
                 messages.success(request, "登入成功")
-                return redirect('post_list')
+                #登入後跳去哪個html
+                return redirect('about')
             else:
                 messages.error(request, "登入失敗，請檢查用戶名和密碼")
     else:
         form = AuthenticationForm()
 
     return render(request, 'login.html', {'form': form})
+
+def about(request):
+    return render(request, 'about.html')
+
+def experience(request):
+    return render(request, 'experience.html')
+
+def education(request):
+    return render(request, 'education.html')
+
+def skills(request):
+    return render(request, 'skills.html')
+
+def awards(request):
+    return render(request, 'awards.html')
+
+def interests(request):
+    return render(request, 'interests.html')
