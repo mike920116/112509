@@ -28,15 +28,17 @@
                     <div class="message" id="email-message"></div>
                 </div> {% endcomment %}
                 <div>
-                    <input class="form-item" type="text" name="username" id="username" placeholder="使用者帳號">
+                    <input class="form-item" type="text" name="username" id="username" placeholder="使用者帳號" required>
                     <div class="message" id="username-message"></div>
+ 
                 </div>
+
                 <div>
-                    <input class="form-item" type="password" name="password" id="password" placeholder="密碼">
+                    <input class="form-item" type="password" name="password" id="password" placeholder="密碼" required>
                     <div class="message" id="password-message"></div>
                 </div>
                 <label class="checkbox"><span style="color:#808080;">記住我</span>
-                  <input type="checkbox" id="remember_me">
+                  <input type="checkbox" id="remember_me" >
                   <span class="checkmark"></span>
                 </label>
                 <br/>
@@ -52,7 +54,7 @@
 
     </div>
     <script>
-        {% comment %} $(() => {
+        {
             if (localStorage.checkbox && localStorage.checbox !== '') {
                 $('#remember-me').attr('checked', 'checked');
                 $('#email').val(localStorage.email);
@@ -60,6 +62,6 @@
                 $('#remember-me').removeAttr('checked');
                 $('#email').val('');
             }
-        }) {% endcomment %}
+        })
     </script>
 {% endblock body %}
