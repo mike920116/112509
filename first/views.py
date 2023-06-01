@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate
-from django.contrib.auth import login as auth_login
+from django.contrib.auth import login as auth_login, logout as auth_logout
 
 from first.models import Post, Comment
 from first.forms import (
@@ -154,3 +154,7 @@ def awards(request):
 
 def interests(request):
     return render(request, 'interests.html')
+
+def logout(request):
+    auth_logout(request)
+    return redirect('about')

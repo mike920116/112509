@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.models import Group
 
+
 from core.views import my_path, add, minus, multiplied_by, divided_by
 from first.views import (
     post_list,
@@ -37,6 +38,7 @@ from first.views import (
     interests,
     skills,
     awards,
+    logout,
 )
 # 2023/05/26
 # admin/的內容
@@ -68,6 +70,8 @@ urlpatterns = [
     path('interests/', interests, name='interests'),
     path('skills/', skills, name='skills'),
     path('awards/', awards, name='awards'),
+
+    path('logout/', logout, name='logout'),
     
     #--------留言
     path('comment-update/<int:comment_id>', comment_update, name='comment_update'),
