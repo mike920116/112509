@@ -2,9 +2,24 @@
 {% block body %}
   <div class="row">
     <div class="col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-        {% if post.image %}
-          <img src="{{ post.image.url }}" class="img-thumbnail" alt="{{ post.title }}" loading="lazy">
-        {% endif %}
+      {% if post.image %}
+      <div class="pic">
+        <img src="{{ post.image.url }}" class="img-thumbnail" alt="{{ post.title }}" loading="lazy">
+      </div>
+      <style>
+        .pic {
+          overflow: hidden;
+        }
+        .pic img {
+          transform: scale(1,1);
+          transition: all 1s ease-out;
+        }
+        .pic img:hover {
+          transform: scale(1.2,1.2);
+        }
+      </style>
+    {% endif %}
+    
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{ post.title }}</h5>
