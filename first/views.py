@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login as auth_login
+from django.contrib.auth import login, authenticate
 
-from first.models import Post, Comment
+from first.models import Post, Comment, Userlogin
 from first.forms import (
     PostForm,
     PostDeleteConfirmForm,
@@ -109,11 +109,25 @@ def login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST) #我們使用了 AuthenticationForm 表單來處理登入的相關表單驗證和登入操作。
         if form.is_valid():
-            user = form.get_user()
-            auth_login(request, user) # 如果表單驗證成功，則使用 auth_login 函數將用戶登入，並顯示成功訊息。
-            messages.success(request, "登入成功")
-            return redirect('post_list')  # 將此行修改為你視圖名稱或URL
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            remember_me = form.cleaned_data['remember_me']
+
+            # 使用 Django 內建的 authenticate 函數進行驗證
+            user = authenticate(request, email=email, password=password)
+
+            if user is not None:
+                # 使用 Django 內建的 login 函數進行登入
+                login(request, user)
+                if remember_me:
+                    request.session.set_expiry(0)  # 設定 session 永久保存
+                else:
+                    request.session.set_expiry(120)  # 設定 session 120 秒後過期
+                messages.success(request, "登入成功")
+                return redirect('post_list')
+            else:
+                messages.error(request, "登入失敗，請檢查用戶名和密碼")
     else:
         form = AuthenticationForm()
-    
+
     return render(request, 'login.html', {'form': form})
