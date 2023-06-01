@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from first.models import Post, Tag, Comment
+from first.models import Post, Tag, Comment, UserLogin, Signup
 # Register your models here.
 
 @admin.register(Post)
@@ -18,3 +18,13 @@ class TagAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ("post", "content")
+
+# 2023/06/01
+@admin.register(UserLogin)
+class UserLoginAdmin(admin.ModelAdmin):
+    list_display = ("id", "email", "password")
+
+# 2023/06/01
+@admin.register(Signup)
+class SignupAdmin(admin.ModelAdmin):
+    list_display = ("id", "fname", "uname", "email")
