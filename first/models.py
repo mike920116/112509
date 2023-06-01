@@ -27,13 +27,6 @@ class Post(models.Model):
 class Comment(models.Model):
     #---------------#TextField多行文字
     content = models.TextField(max_length=500)
-    #to就是關連到哪一個資料表
-    #---------------------
-    # FK 刪除的策略
-    # models.CASCADE：連帶刪除 -> 刪除 Post 時一併刪除 Comment
-    # models.PROTECT：保護 -> 刪除 Post 時，若有 Comemnt 存在阻止 Post 刪除
-    # models.SET_DEFAULT：刪除 Post 時，將 Comment 中的 post 欄位設定成預設值
-    # models.SET_NULL：刪除 Post 時，將 Comment 中的 post 欄位設定成 null
     post = models.ForeignKey(to = Post, on_delete=models.CASCADE)
 
     # 自動產生的欄位
@@ -46,11 +39,18 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
-#2023/5/31
-class Userlogin(models.Model):
+class UserLogin(models.Model):
     email = models.CharField(max_length=64, unique=True)
     password = models.CharField(max_length=128)
-    # 其他需要儲存的使用者資訊
 
     def __str__(self):
         return self.email
+    
+class Signup(models.Model):
+    fname = models.CharField(max_length=255)
+    uname = models.CharField(max_length=255)
+    email = models.CharField(max_length=64, unique=True)
+    password = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.fname
