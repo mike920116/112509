@@ -199,16 +199,17 @@ a {
 
     /* Login Page */
     /* Banner */
+    /* 最上面空白寬度 */
     .section-login .banner {
-        margin-top: 5vh;
+        margin-top: 2vh;
     }
     .section-login .banner img{
-        width: 400px;
+        width: 300px;
     }
 
     /* Content */
     .section-login .wrap {
-        height: 280px;
+        height: 450px;
     }
     .section-login .message {
         max-width: 380px;

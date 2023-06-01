@@ -1,79 +1,68 @@
-{% extends 'base_signup.html' %}
+{%load static%}
 {% block body %}
-
-
-
-<div class="row">
-  <div class="col-md-12">
-    
-    <h1>
-      註冊帳號
-    </h1>
-    <div class="row">
-      <div class="col-md-6">
-        <form role="form" action="{% url 'signup' %}" method="POST">
-          {% csrf_token %}
-          <div class="form-group">
-             
-            <label for="InputUsername">
-              使用者帳號：
-            </label>
-            <input type="uname" class="form-control" id="InputUsername" />
-          </div>
-          <div class="form-group">
-             
-            <label for="InputFirstname">
-              名字：
-            </label>
-            <input type="fname" class="form-control" id="InputFirstname" />
-          </div>
-          <div class="form-group">
-             
-            <label for="InputLastname">
-              姓氏：
-            </label>
-            <input type="lname" class="form-control" id="InputLastname" />
-          </div>
-          <div class="form-group">
-             
-            <label for="InputEmail">
-              E-mail信箱：
-            </label>
-            <input type="email" class="form-control" id="InputEmail" />
-          </div>
-          <div class="form-group">
-             
-            <label for="InputPassword1">
-              password：
-            </label>
-            <input type="password" class="form-control" id="InputPassword1" />
-          </div>
-          <div class="form-group">
-             
-            <label for="InputPassword2">
-              confirm password：
-            </label>
-            <input type="confirmpassword" class="form-control" id="InputPassword2" />
-          </div>
-
-          <div class="checkbox">
-             
-            <label>
-              <input type="checkbox" /> 確認要進行註冊
-            </label>
-          </div> 
-
-          <button type="submit" class="btn btn-primary">
-            <div class="navbar-nav">
-              <a class="nav-link" href="{% url 'post_list' %}">註冊</a>
-            </div>
-          </button> 
-
-        </form>
+<!DOCTYPE html>
+<html lang="UTF-8">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>註冊</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/signup.css' %}"/>
+</head>
+<body>
+  <div class="section-login">
+      <div class="banner">
+          <img src="{% static 'images/LOGO.png' %}">
       </div>
-      <div class="col-md-6">
+
+  <div class="wrap">
+    <form>
+      <div>
+        <input class="form-item" type="text" name="fname" id="fname" placeholder="使用者帳號">
+        <div class="fname" id="fname"></div>
       </div>
-    </div>
-  </div>
-</div>
+
+      <div>
+        <input class="form-item" type="text" name="uname" id="uname" placeholder="名字">
+        <div class="uname" id="uname"></div>
+      </div>
+
+      <div>
+        <input class="form-item" type="text" name="email" id="email" placeholder="電子郵件">
+        <div class="message" id="email-message"></div>
+      </div>
+
+      <div>
+        <input class="form-item" type="password" name="password1" id="password1" placeholder="密碼">
+        <div class="message" id="password-message"></div>
+      </div>
+
+      <div>
+        <input class="form-item" type="password" name="password2" id="password2" placeholder="再次確認密碼">
+        <div class="message" id="password-message"></div>
+      </div>
+
+      <div class="form-item button" onclick="userLogin()">
+        <p>註冊</p>
+      </div>
+
+      <div class="text-item">
+        <span>已經有帳號了嗎？&ensp;</span>
+        <a class="text-strong" href="\login">登入</a>
+      </div>
+
+    </form>
+    <script>
+      var form = document.querySelector('form');
+      form.addEventListener('submit', function(event) {
+        var password1 = document.querySelector('#password1').value;
+        var password2 = document.querySelector('#password2').value;
+        if (password1 !== password2) {
+          event.preventDefault();
+          alert('两次输入的密码不一致，请重新输入！');
+        }
+      });
+    </script>
 {% endblock body %}
