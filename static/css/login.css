@@ -10,6 +10,11 @@ html, body {
     color: #c5c9d3;
     overflow-x:hidden;
 }
+h1{
+    font-size: 32px; 
+    color:#838282; 
+    text-align: center;
+}
 .checkbox {
     position: relative;
     padding-left: 20px;
