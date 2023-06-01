@@ -8,16 +8,6 @@
       <a class="btn btn-outline-success" href="{% url 'post_create' %}">發文</a>
     </div>
   </div>
-
-  {% comment %} <ul>
-    {% for post in posts %}
-      <li>
-        #{{ post.id }} | {{ post.title }} | <a href="{% url 'post_detail' post.id %}">detail</a>
-      </li>
-    {% empty %}
-      <li>沒有任何文章</li>
-    {% endfor %}
-  </ul> {% endcomment %}
   <div class="row">
     <div class="col">
       <table class="table">
