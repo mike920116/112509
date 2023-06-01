@@ -99,7 +99,7 @@ def signup(request):
         if form.is_valid():
             form.save()
             messages.success(request, "註冊帳號成功")
-            return redirect('post_list')  # 將此行修改為你的視圖名稱或URL
+            return redirect('post_list')  # 將跳轉到主畫面
     else:
         form = UserCreationForm()
     
