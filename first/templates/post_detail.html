@@ -1,17 +1,6 @@
 {% extends 'base.html' %}
 {% block body %}
-  {% comment %}  id: {{ post.id }}
-  <br>
-  title: {{ post.title }}
-  <br>
-  content: {{ post.content | linebreaks }}
-  <br>
-  is_public: {{ post.is_public }}
-  <br>
-  <a href="{% url 'post_update' post.id %}">編輯</a>
-  <a href="{% url 'post_delete' post.id %}">刪除</a>  {% endcomment %}
   <div class="row">
-  {% comment %} 寬度 {% endcomment %}
     <div class="col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
         {% if post.image %}
           <img src="{{ post.image.url }}" class="img-thumbnail" alt="{{ post.title }}" loading="lazy">
@@ -47,7 +36,6 @@
   </div>
 
   <div class="row mt-4">
-    {% comment %} 寬度 {% endcomment %}
     <div class="col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
       <h5>留言區</h5>
       <hr>
@@ -56,7 +44,6 @@
 
   {% for comment in post.comment_set.all %}
     <div class="row mt-2">
-      {% comment %} 寬度 {% endcomment %}
       <div class="col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
         <div class="card">
           <h6 class="card-header">第 {{ forloop.counter0 }} 樓</h6>
@@ -65,7 +52,6 @@
               {{ comment.content }}
             </p>
           </div>
-          {% comment %} 留言區 {% endcomment %}
           <div class="card-footer text-end">
             <a href="{% url 'comment_update' comment.id %}" class="card-link">編輯</a>
             <a href="{% url 'comment_delete' comment.id %}" class="card-link">刪除</a>
