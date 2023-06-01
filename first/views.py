@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate
 
-from first.models import Post, Comment, Userlogin
+from first.models import Post, Comment
 from first.forms import (
     PostForm,
     PostDeleteConfirmForm,
