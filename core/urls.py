@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth.models import Group
 
 from core.views import my_path, add, minus, multiplied_by, divided_by
 from first.views import (
@@ -42,6 +43,7 @@ from first.views import (
 admin.site.site_header = '管理員後台'
 admin.site.site_header = '管理員後台'
 admin.site.index_title = '網站管理'
+admin.site.unregister(Group)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
