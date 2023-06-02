@@ -42,8 +42,8 @@
           </p>
         </div>
         <div class="card-footer text-end">
-          <a href="{% url 'post_update' post.id %}" class="card-link">編輯</a>
-          <a href="{% url 'post_delete' post.id %}" class="card-link">刪除</a>
+          {% comment %} <a href="{% url 'post_update' post.id %}" class="card-link">編輯</a>
+          <a href="{% url 'post_delete' post.id %}" class="card-link">刪除</a> {% endcomment %}
           <a href="{% url 'post_comment' post.id %}" class="card-link">留言</a>
         </div>
       </div>
