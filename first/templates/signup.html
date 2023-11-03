@@ -18,7 +18,9 @@
       </div>
 
   <div class="wrap">
-    <form action="" method="POST">
+    {% comment %} 如果只是要跳轉頁面用method="GET",其他都用method="POST"  {% endcomment %}
+    <form action="{% url 'signup' %}" method="POST">
+      {% csrf_token %}
       <div>
         <style>h1{
           font-size: 28px; 
@@ -43,26 +45,30 @@
       </div>
 
       <div>
-        <input class="form-item" type="password" name="password1" id="password1" placeholder="密碼">
+        <input class="form-item" type="password" name="password" id="password1" placeholder="密碼">
         <div class="message" id="password-message"></div>
       </div>
 
-      <div>
+      {% comment %} <div>
         <input class="form-item" type="password" name="password2" id="password2" placeholder="再次確認密碼">
         <div class="message" id="password-message"></div>
-      </div>
+      </div> {% endcomment %}
 
-      <div class="form-item button" onclick="userLogin()">
+      <button class="form-item button" type="submit">註冊</button>
+      {% comment %} <div class="form-item button" onclick="userLogin()">
         <p>註冊</p>
-      </div>
+      </div> {% endcomment %}
 
       <div class="text-item">
         <span>已經有帳號了嗎？&ensp;</span>
         <a class="text-strong" href="/login">登入</a>
       </div>
 
+      <div id="message" class="message"></div>
+
+
     </form>
-    <script>
+    {% comment %} <script>
       var form = document.querySelector('form');
       form.addEventListener('submit', function(event) {
         var password1 = document.querySelector('#password1').value;
@@ -72,6 +78,25 @@
           alert('兩次輸入的密碼不一致，請重新輸入！');
         }
       });
+    </script> {% endcomment %}
+    
+    <script>
+      // 获取消息元素
+      var messageElement = document.getElementById("message");
+    
+      // 模拟注册成功或失败
+      var registrationSuccess = true; // 在实际应用中，根据您的逻辑来设置此值
+    
+      if (registrationSuccess) {
+        // 注册成功的消息
+        messageElement.innerText = "注册成功！";
+        messageElement.style.color = "green"; // 设置消息颜色
+      } else {
+        // 注册失败的消息
+        messageElement.innerText = "注册失败，请重试。";
+        messageElement.style.color = "red"; // 设置消息颜色
+      }
     </script>
+    
   </div>
 {% endblock body %}

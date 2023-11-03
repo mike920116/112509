@@ -1,5 +1,5 @@
 from django import forms
-
+from django.contrib.auth.models import User
 from first.models import Post, Comment
 
 
@@ -27,3 +27,8 @@ class CommentDeleteConfirmForm(forms.Form):
         required=True,
         label="你確定要刪除這則留言嗎？真的會消失喔！！！",
     )
+
+class SignupForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = "__all__"

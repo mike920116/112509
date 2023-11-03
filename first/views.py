@@ -93,16 +93,21 @@ def comment_delete(request, comment_id):
 
     return render(request, "comment_delete.html", {"form": form})
 
-
+# UserCreationForm
+from first.forms import SignupForm
 def signup(request):
+    print('request', request)
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = SignupForm(request.POST)
+        print("hello")
+        print(form.is_valid())
         if form.is_valid():
             form.save()
+            print("save hello")
             messages.success(request, "註冊帳號成功")
-            return redirect('post_list')  # 將跳轉到主畫面
+            return redirect('login')  # 將跳轉到主畫面
     else:
-        form = UserCreationForm()
+        form = SignupForm()
     
     return render(request, 'signup.html', {'form': form})
 
