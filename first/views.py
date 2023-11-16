@@ -1,3 +1,5 @@
+# views.py的用途主要用於新創建的表單來處理登入請求。
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
