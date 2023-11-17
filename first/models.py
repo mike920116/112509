@@ -1,3 +1,5 @@
+#當你在 models.py 文件中定義或更改模型後，使用 makemigrations 和 migrate 命令，Django 將同步這些更改到資料庫。
+
 from django.db import models
 
 # Create your models here.
@@ -40,17 +42,17 @@ class Tag(models.Model):
         return self.name
 
 class UserLogin(models.Model):
-    email = models.CharField(max_length=64, unique=True)
-    password = models.CharField(max_length=128)
+    email = models.EmailField()
+    password = models.CharField(max_length=100)
 
     def __str__(self):
         return self.email
     
 class Signup(models.Model):
-    fname = models.CharField(max_length=255)
-    uname = models.CharField(max_length=255)
-    email = models.CharField(max_length=64, unique=True)
-    password = models.CharField(max_length=128)
+    fname = models.CharField(max_length=100)
+    uname = models.CharField(max_length=100)
+    email = models.EmailField()
+    password = models.CharField(max_length=100)  # 注意：實際應用中應使用加密的密碼存儲方式
 
     def __str__(self):
         return self.fname
