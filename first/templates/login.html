@@ -25,13 +25,12 @@
                     <h1>不要心灰意code</h1>
                 </div>
                 {% comment %} <div>
-                    <input class="form-item" type="text" name="email" id="email" placeholder="電子郵件">
+                    <input class="form-item" type="text" name="email" id="email" placeholder="電子郵件" required>
                     <div class="message" id="email-message"></div>
                 </div> {% endcomment %}
                 <div>
                     <input class="form-item" type="text" name="username" id="username" placeholder="使用者帳號" required>
                     <div class="message" id="username-message"></div>
- 
                 </div>
 
                 <div>
@@ -43,9 +42,11 @@
                   <span class="checkmark"></span>
                 </label>
                 <br/>
-                <button type="submit" class="form-item button" href="/index">
+                {% comment %} <button type="submit" class="form-item button" href="/index">
                     登入
-                </button>
+                </button> {% endcomment %}
+                <button type="submit" class="form-item button">登入</button>
+
                 <div class="text-item">
                     <span>還沒有帳號嗎？&ensp;</span>
                     <a class="text-strong" href="/signup">註冊</a>
