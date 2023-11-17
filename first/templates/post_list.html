@@ -4,44 +4,44 @@
     <div class="col">
       <h1>題庫列表</h1>
     </div>
-    {% comment %} <div class="col text-end">
+    <div class="col text-end">
       <a class="btn btn-outline-success" href="{% url 'post_create' %}">發文</a>
-    </div> {% endcomment %}
-    <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    </div>
+    <form class="d-flex" method="GET" action="{% url 'post_list' %}">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
   </div>
   <div class="row">
     <div class="col">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">標題</th>
-            <th scope="col">是否公開</th>
-            <th scope="col">標籤</th>
-            <th scope="col">練習</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for post in posts %}
+      {% if posts %}
+        <table class="table">
+          <thead>
             <tr>
-              <th scope="row">{{ post.id }}</th>
-              <td>{{ post.title }}</td>
-              <td>{{ post.is_public }}</td>
-              <td>{{ post.tags.all|join:', ' }}</td>
-              <td>
-                <a class="btn btn-info btn-sm" href="{% url 'post_detail' post.id %}">開始作答</a>
-              </td>
+              <th scope="col">#</th>
+              <th scope="col">標題</th>
+              <th scope="col">是否公開</th>
+              <th scope="col">標籤</th>
+              <th scope="col">詳情</th>
             </tr>
-          {% empty %}
-            <tr>
-              <th scope="row" colspan="4" class="text-center">目前沒有任何文章，不如你發一篇吧！</th>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {% for post in posts %}
+              <tr>
+                <th scope="row">{{ post.id }}</th>
+                <td>{{ post.title }}</td>
+                <td>{{ post.is_public }}</td>
+                <td>{{ post.tags.all|join:', ' }}</td>
+                <td>
+                  <a class="btn btn-secondary btn-sm" href="{% url 'post_detail' post.id %}">查看</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p class="text-center">未找到匹配的结果。</p>
+      {% endif %}
     </div>
-  </div>  
+  </div>
 {% endblock body %}
