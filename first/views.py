@@ -1,4 +1,5 @@
-# views.py的用途主要用於新創建的表單來處理登入請求。
+# views.py主要處理應用程序的業務邏輯，使用模型來與資料庫進行交互。
+# 視圖的改變可能影響到資料的讀取和寫入，但它本身不直接同步到資料庫。
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
@@ -14,7 +15,18 @@ from first.forms import (
     CommentDeleteConfirmForm,
 )
 def post_list(request):
-
+    #11/17新增的-------------
+    # query = request.GET.get('q')  # Get the search query from the URL parameters
+    # if query:
+    #     posts = Post.objects.filter(title__icontains=query)
+    # else:
+    #     posts = Post.objects.all()
+    query = request.GET.get('q')  # 获取 URL 参数中的搜索查询
+    posts = []
+    if query:
+        # 使用 title__icontains 进行标题的部分匹配搜索
+        posts = Post.objects.filter(title__icontains=query)
+    #-------------------------
     posts = Post.objects.prefetch_related("tags")
     if "tag_id" in request.GET:
         posts = posts.filter(tags__id=request.GET["tag_id"])
