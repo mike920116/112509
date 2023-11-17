@@ -48,7 +48,6 @@
         <input class="form-item" type="password" name="password" id="password1" placeholder="密碼">
         <div class="message" id="password-message"></div>
       </div>
-
       {% comment %} <div>
         <input class="form-item" type="password" name="password2" id="password2" placeholder="再次確認密碼">
         <div class="message" id="password-message"></div>
@@ -65,20 +64,7 @@
       </div>
 
       <div id="message" class="message"></div>
-
-
     </form>
-    {% comment %} <script>
-      var form = document.querySelector('form');
-      form.addEventListener('submit', function(event) {
-        var password1 = document.querySelector('#password1').value;
-        var password2 = document.querySelector('#password2').value;
-        if (password1 !== password2) {
-          event.preventDefault();
-          alert('兩次輸入的密碼不一致，請重新輸入！');
-        }
-      });
-    </script> {% endcomment %}
     
     <script>
       // 获取消息元素
@@ -90,11 +76,11 @@
       if (registrationSuccess) {
         // 注册成功的消息
         messageElement.innerText = "注册成功！";
-        messageElement.style.color = "green"; // 设置消息颜色
+        messageElement.style.color = "green"; // 設置消息顏色
       } else {
         // 注册失败的消息
         messageElement.innerText = "注册失败，请重试。";
-        messageElement.style.color = "red"; // 设置消息颜色
+        messageElement.style.color = "red"; // 設置消息顏色
       }
     </script>
     
