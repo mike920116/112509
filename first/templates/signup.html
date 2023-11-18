@@ -69,15 +69,8 @@
     </form>
   
    
-    {% comment %} {% if messages %}
-    <ul>
-        {% for message in messages %}
-        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %} {% endcomment %}
 
-    <script>
+    {% comment %} <script>
       var form = document.querySelector('form');
       form.addEventListener('submit', function(event) {
         var username = document.querySelector('#username').value;
@@ -119,7 +112,63 @@
         var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
       }
+    </script> {% endcomment %}
+    <script>
+      var form = document.querySelector('form');
+      form.addEventListener('submit', function(event) {
+        var username = document.querySelector('#username').value;
+        var email = document.querySelector('#email').value;
+        var password1 = document.querySelector('#password1').value;
+        var password2 = document.querySelector('#password2').value;
+
+        var isValid = true;
+        var errorMessage = '';
+
+        if (!username.trim()) {
+          errorMessage += '請輸入使用者帳號\n';
+          isValid = false;
+        }
+
+        if (!email.trim() || !isValidEmail(email)) {
+          errorMessage += '請輸入有效的電子郵件地址\n';
+          isValid = false;
+        }
+
+        // 檢查密碼規則
+        var hasNumber = /\d/.test(password1);
+        var hasLetter = /[a-zA-Z]/.test(password1);
+        var isLengthValid = password1.length >= 8;
+
+        if (!isLengthValid || !hasNumber || !hasLetter) {
+          errorMessage += '密碼需符合以下規則：\n';
+          errorMessage += '- 至少 8 個字符\n';
+          errorMessage += '- 至少包含一個數字\n';
+          errorMessage += '- 至少包含一個字母（小寫或大寫）\n';
+          isValid = false;
+        }
+
+        if (password1 !== password2) {
+          errorMessage += '兩次輸入的密碼不一致，請重新輸入！\n';
+          isValid = false;
+        }
+
+
+        if (!isValid) {
+          event.preventDefault();
+          alert(errorMessage);
+        } 
+          else {
+          alert("註冊成功");
+        }
+      });
+
+      function isValidEmail(email) {
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+
     </script>
+    
     
   </div>
 {% endblock body %}
