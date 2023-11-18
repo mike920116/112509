@@ -8,7 +8,7 @@
       <a class="btn btn-outline-success" href="{% url 'post_create' %}">發文</a>
     </div>
     <form class="d-flex" method="GET" action="{% url 'post_list' %}">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="Search_query" value="{{ request.GET.Search_query }}">
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
   </div>

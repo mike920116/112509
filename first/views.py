@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login, logout as auth_logout
+from django.db.models import Q
 
 from first.models import Post, Comment
 from first.forms import (
@@ -14,10 +15,13 @@ from first.forms import (
 from django.contrib.auth.hashers import make_password
 
 def post_list(request):
-
+    
     posts = Post.objects.prefetch_related("tags")
+    query = request.GET.get('Search_query')
     if "tag_id" in request.GET:
         posts = posts.filter(tags__id=request.GET["tag_id"])
+    if query:
+        posts = posts.filter(Q(title__icontains=query))
         
     return render(request, 'post_list.html', {'posts': posts})
 
