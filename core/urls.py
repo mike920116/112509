@@ -32,12 +32,7 @@ from first.views import (
     comment_delete,
     signup,
     login,
-    #about,
-    #experience,
-    education,
-    topic,
-    course,
-    answer,
+    
     logout,
 )
 # 2023/05/26
@@ -64,12 +59,7 @@ urlpatterns = [
     path('post-update/<int:post_id>', post_update, name='post_update'),
     path('post-delete/<int:post_id>/', post_delete, name='post_delete'),
     path("post-comment/<int:post_id>/", post_comment, name="post_comment"),
-    #path('about/', about, name='about'),
-    #path('experience/', experience, name='experience'),
-    path('education/', education, name='education'),
-    path('topic/', topic, name='topic'),
-    path('course/', course, name='course'),
-    path('answer/', answer, name='answer'),
+
 
     path('logout/', logout, name='logout'),
     
