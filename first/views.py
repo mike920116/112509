@@ -1,6 +1,3 @@
-# views.py主要處理應用程序的業務邏輯，使用模型來與資料庫進行交互。
-# 視圖的改變可能影響到資料的讀取和寫入，但它本身不直接同步到資料庫。
-
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -14,19 +11,10 @@ from first.forms import (
     CommentForm,
     CommentDeleteConfirmForm,
 )
+from django.contrib.auth.hashers import make_password
+
 def post_list(request):
-    #11/17新增的-------------
-    # query = request.GET.get('q')  # Get the search query from the URL parameters
-    # if query:
-    #     posts = Post.objects.filter(title__icontains=query)
-    # else:
-    #     posts = Post.objects.all()
-    query = request.GET.get('q')  # 获取 URL 参数中的搜索查询
-    posts = []
-    if query:
-        # 使用 title__icontains 进行标题的部分匹配搜索
-        posts = Post.objects.filter(title__icontains=query)
-    #-------------------------
+
     posts = Post.objects.prefetch_related("tags")
     if "tag_id" in request.GET:
         posts = posts.filter(tags__id=request.GET["tag_id"])
@@ -110,26 +98,28 @@ def comment_delete(request, comment_id):
 # UserCreationForm
 from first.forms import SignupForm
 def signup(request):
-    print('request', request)
     if request.method == 'POST':
-        form = SignupForm(request.POST)
-        print("hello")
-        print(form.is_valid())
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request)
             print("save hello")
-            messages.success(request, "註冊帳號成功")
+            # messages.success(request, "註冊帳號成功")
             return redirect('login')  # 將跳轉到主畫面
     else:
         form = SignupForm()
     
     return render(request, 'signup.html', {'form': form})
 
+
 def login(request):
     if request.method == 'POST':
         print(request.POST)
         form = AuthenticationForm(request, data=request.POST) #我們使用了 AuthenticationForm 表單來處理登入的相關表單驗證和登入操作。
-        
+        print(form.errors)
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
@@ -139,6 +129,7 @@ def login(request):
             # 使用 Django 內建的 authenticate 函數進行驗證
             user = authenticate(request, username=username, password=password)
             print('user', user)
+            print(user is not None)
             if user is not None:
                 # 使用 Django 內建的 login 函數進行登入
                 auth_login(request, user)
@@ -148,7 +139,7 @@ def login(request):
                     request.session.set_expiry(120)  # 設定 session 120 秒後過期
                 messages.success(request, "登入成功")
                 #登入後跳去哪個html
-                return redirect('topic')
+                return redirect('post_list')
             else:
                 messages.error(request, "登入失敗，請檢查用戶名和密碼")
     else:
