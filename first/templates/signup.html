@@ -29,29 +29,30 @@
         </style>
         <h1>不要心灰意code</h1>
       </div>
-      <div>
-        <input class="form-item" type="text" name="fname" id="fname" placeholder="使用者帳號">
-        <div class="fname" id="fname"></div>
-      </div>
 
       <div>
-        <input class="form-item" type="text" name="uname" id="uname" placeholder="名字">
-        <div class="uname" id="uname"></div>
+        <input class="form-item" type="text" name="username" id="username" placeholder="使用者帳號">
+        <div class="username-message" id="username-message"></div>
       </div>
 
       <div>
         <input class="form-item" type="text" name="email" id="email" placeholder="電子郵件">
         <div class="message" id="email-message"></div>
+      </div> 
+
+      {% comment %} <div>
+        <input class="form-item" type="datetime-local" name="date_joined" id="date_joined" placeholder="加入時間">
+      </div>  {% endcomment %}
+
+      <div>
+        <input class="form-item" type="password" name="password1" id="password1" placeholder="密碼">
+        <div class="message" id="password-message"></div>
       </div>
 
       <div>
-        <input class="form-item" type="password" name="password" id="password1" placeholder="密碼">
-        <div class="message" id="password-message"></div>
-      </div>
-      {% comment %} <div>
         <input class="form-item" type="password" name="password2" id="password2" placeholder="再次確認密碼">
         <div class="message" id="password-message"></div>
-      </div> {% endcomment %}
+      </div> 
 
       <button class="form-item button" type="submit">註冊</button>
       {% comment %} <div class="form-item button" onclick="userLogin()">
@@ -64,23 +65,59 @@
       </div>
 
       <div id="message" class="message"></div>
+
     </form>
-    
+  
+   
+    {% comment %} {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %} {% endcomment %}
+
     <script>
-      // 获取消息元素
-      var messageElement = document.getElementById("message");
-    
-      // 模拟注册成功或失败
-      var registrationSuccess = true; // 在实际应用中，根据您的逻辑来设置此值
-    
-      if (registrationSuccess) {
-        // 注册成功的消息
-        messageElement.innerText = "注册成功！";
-        messageElement.style.color = "green"; // 設置消息顏色
-      } else {
-        // 注册失败的消息
-        messageElement.innerText = "注册失败，请重试。";
-        messageElement.style.color = "red"; // 設置消息顏色
+      var form = document.querySelector('form');
+      form.addEventListener('submit', function(event) {
+        var username = document.querySelector('#username').value;
+        var email = document.querySelector('#email').value;
+        var password1 = document.querySelector('#password1').value;
+        var password2 = document.querySelector('#password2').value;
+
+        var isValid = true;
+        var errorMessage = '';
+
+        if (!username.trim()) {
+          errorMessage += '請輸入使用者帳號\n';
+          isValid = false;
+        }
+
+        if (!email.trim() || !isValidEmail(email)) {
+          errorMessage += '請輸入有效的電子郵件地址\n';
+          isValid = false;
+        }
+
+        if (password1 !== password2) {
+          errorMessage += '兩次輸入的密碼不一致，請重新輸入！\n';
+          isValid = false;
+        }
+
+        if (!isValid) {
+          event.preventDefault();
+          alert(errorMessage);
+          document.querySelector('#username').value = '';
+          document.querySelector('#email').value = '';
+          document.querySelector('#password1').value = '';
+          document.querySelector('#password2').value = '';
+        }
+        alert("註冊成功")
+       
+      });
+
+      function isValidEmail(email) {
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
       }
     </script>
     
