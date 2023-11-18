@@ -107,7 +107,6 @@ def signup(request):
             user = authenticate(username=username, password=raw_password)
             login(request)
             print("save hello")
-            # messages.success(request, "註冊帳號成功")
             return redirect('login')  # 將跳轉到主畫面
     else:
         form = SignupForm()
@@ -147,24 +146,7 @@ def login(request):
 
     return render(request, 'login.html', {'form': form})
 
-# def about(request):
-#     return render(request, 'about.html')
-
-# def experience(request):
-#     return render(request, 'experience.html')
-
-def education(request):
-    return render(request, 'education.html')
-
-def topic(request):
-    return render(request, 'topic.html')
-
-def course(request):
-    return render(request, 'course.html')
-
-def answer(request):
-    return render(request, 'answer.html')
 
 def logout(request):
     auth_logout(request)
-    return redirect('topic')
+    return redirect('login')

@@ -44,7 +44,6 @@ admin.site.unregister(Group)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('my-path/', my_path),
     # 使用者註冊畫面
     path('signup/', signup, name='signup'),
     # 使用者登入畫面
