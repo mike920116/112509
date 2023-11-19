@@ -11,8 +11,8 @@ from first.forms import (
     PostDeleteConfirmForm,
     CommentForm,
     CommentDeleteConfirmForm,
+    SignupForm
 )
-from django.contrib.auth.hashers import make_password
 
 def post_list(request):
     
@@ -100,7 +100,6 @@ def comment_delete(request, comment_id):
     return render(request, "comment_delete.html", {"form": form})
 
 # UserCreationForm
-from first.forms import SignupForm
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
