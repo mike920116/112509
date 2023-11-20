@@ -1,3 +1,4 @@
+{% load static %}
 {% load django_bootstrap5 %}
 
 <!DOCTYPE html>
@@ -15,9 +16,17 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <li class="nav-item">
-          <a class="navbar-brand mb-0 h1" class="nav-link" href="{% url 'post_list' %}">不要心灰意code</a>
+          <a class="navbar-brand mb-0 h1"
+             class="nav-link"
+             href="{% url 'post_list' %}">不要心灰意code</a>
         </li>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -54,7 +63,7 @@
 
 
 
-            
+ 
           </ul>
           {% comment %}
           <form class="d-flex">
@@ -62,23 +71,57 @@
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form> {% endcomment %}
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <!-- ... -->
-
             <li class="nav-item dropdown">
-
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                帳號管理
+              <a class="nav-link dropdown-toggle"
+                 href="#"
+                 id="navbarDropdown"
+                 role="button"
+                 data-bs-toggle="dropdown"
+                 aria-expanded="false">
+                {% if user.is_authenticated %}
+                  歡迎， {{ user.username }}
+                  {% if user.avatar %}
+                    <img src="{{ user.avatar.url }}"
+                         alt="User Avatar"
+                         class="rounded-circle"
+                         width="30"
+                         height="30">
+                  {% else %}
+                    <img src="{% static 'images/anonymous.png' %}"
+                         alt="Default Avatar"
+                         class="rounded-circle"
+                         width="30"
+                         height="30">
+                  {% endif %}
+                {% else %}
+                  <!-- Display default username if not authenticated -->
+                  DefaultUsername
+                {% endif %}
               </a>
-              <ul class="dropdown-menu dropdown-menu-end right-aligned shadow bg-white" aria-labelledby="navbarDropdown">
-
-
-                <li><a class="dropdown-item" href="{% url 'login' %}">更改帳號</a></li>
-                <li><a class="dropdown-item" href="#">設定</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">登出</a></li>
+              <ul class="dropdown-menu dropdown-menu-end right-aligned shadow bg-white"
+                  aria-labelledby="navbarDropdown">
+                {% if user.is_authenticated %}
+                  <!-- Display account-related links only if authenticated -->
+                  <li>
+                    <a class="dropdown-item" href="#">帳號管理</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">設定</a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'logout' %}">登出</a>
+                  </li>
+                {% else %}
+                  <!-- Display login link if not authenticated -->
+                  <li>
+                    <a class="dropdown-item" href="{% url 'login' %}">登入</a>
+                  </li>
+                {% endif %}
               </ul>
             </li>
-            <!-- ... -->
           </ul>
         </div>
       </div>
