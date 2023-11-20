@@ -59,6 +59,9 @@ urlpatterns = [
     path('post-delete/<int:post_id>/', post_delete, name='post_delete'),
     path("post-comment/<int:post_id>/", post_comment, name="post_comment"),
 
+    #使用者帳號查看和編輯
+    
+
 
     path('logout/', logout, name='logout'),
     
