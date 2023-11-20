@@ -6,19 +6,15 @@
       <div class="pic">
         <img src="{{ post.image.url }}" class="img-thumbnail" alt="{{ post.title }}" loading="lazy">
       </div>
-      <style>
-        .pic {
-          overflow: hidden;
-        }
-        .pic img {
-          transform: scale(1,1);
-          transition: all 1s ease-out;
-        }
-        .pic img:hover {
-          transform: scale(1.2,1.2);
-        }
-      </style>
-    {% endif %}
+      {% endif %}
+      {% if post.video %}
+      <div class="video-container">
+        <video controls width="100%">
+          <source src="{{ post.video.url }}" type="{{ post.video.content_type }}">
+        </video>
+      </div>
+      {% endif %}
+    
     
       <div class="card">
         <div class="card-body">
