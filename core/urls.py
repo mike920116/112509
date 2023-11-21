@@ -38,7 +38,7 @@ from first.views import (
 # 2023/05/26
 # admin/的內容
 admin.site.site_header = '管理員後台'
-admin.site.site_header = '管理員後台'
+admin.site.site_title = '管理員後台'
 admin.site.index_title = '網站管理'
 admin.site.unregister(Group)
 
@@ -60,7 +60,6 @@ urlpatterns = [
     path("post-comment/<int:post_id>/", post_comment, name="post_comment"),
 
     #使用者帳號查看和編輯
-    
 
 
     path('logout/', logout, name='logout'),

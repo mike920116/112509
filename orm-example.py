@@ -1,4 +1,4 @@
-from first.models import Post, Comment, Tag
+from first.models import Post, Comment, Tag, Difficulty
 
 
 # 建立 Post 方法一
@@ -108,3 +108,23 @@ for comment in Comment.objects.select_related('post'):  # 從多往一關係，�
     print(comment.post.title)
     print(comment.content)
     print('=====')
+
+#難度篩選製作
+
+# difficulty = Difficulty.objects.create(name='Easy')
+
+# post = Post.objects.create(title='Title 002', content='Content 002')
+# post.difficulties.add(difficulty)
+
+# posts_with_easy_difficulty = Post.objects.filter(difficulties__name='Easy')
+# for post in posts_with_easy_difficulty:
+#     print(post.title)
+
+# post.difficulties.remove(difficulty)
+
+# for post in Post.objects.prefetch_related('difficulties'):
+#     print(post.title)
+#     for difficulty in post.difficulties.all():
+#         print(difficulty.name)
+
+#     print('=====')

@@ -7,6 +7,7 @@
         <img src="{{ post.image.url }}" class="img-thumbnail" alt="{{ post.title }}" loading="lazy">
       </div>
       {% endif %}
+      {% comment %}
       {% if post.video %}
       <div class="video-container">
         <video controls width="100%">
@@ -14,12 +15,13 @@
         </video>
       </div>
       {% endif %}
+      {% endcomment %}
     
     
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{ post.title }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">作者</h6>
+          <h6 class="card-subtitle mb-2 text-muted">題目內容</h6>
           <p class="card-text">
             <nav style="--bs-breadcrumb-divider: ',';" aria-label="breadcrumb">
               <ol class="breadcrumb">

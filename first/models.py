@@ -10,13 +10,20 @@ class Post(models.Model):
     content = models.TextField(max_length=500)
     is_public = models.BooleanField(default=True)
 
+    DIFFICULTY_CHOICES = [
+        ('easy', 'Easy'),
+        ('medium', 'Medium'),
+        ('hard', 'Hard'),
+    ]
+    difficulty = models.CharField(max_length=10, choices=DIFFICULTY_CHOICES, default='medium')
+
     #2023/4/29
     # tags = models.ManyToManyField(to='Tag')
 
     # 2023/5/6
     tags = models.ManyToManyField(to="Tag", blank=True)
     image = models.ImageField(upload_to="posts/%Y/%m/%d/", null=True, blank=True)
-    video = models.FileField(upload_to="posts/%Y", null=True, blank=True)
+    # video = models.FileField(upload_to="posts/%Y", null=True, blank=True)
     # null -> 可以存放 null 到資料庫中
     # blank -> 這個欄位是可以不填寫的
 

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from first.models import Post, Comment
+from first.models import Post, Comment, Tag
 
 
 class PostForm(forms.ModelForm):
@@ -8,6 +8,11 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = '__all__'
         # fields = ('title', 'content')
+        tag = forms.ModelChoiceField(
+        queryset=Tag.objects.all(),
+        empty_label="Select a Tag",
+        required=False,
+    )
 
 class PostDeleteConfirmForm(forms.Form):
     check = forms.BooleanField(

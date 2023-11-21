@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.db.models import Q
 
-from first.models import Post, Comment
+from first.models import Post, Comment, Tag
 from first.forms import (
     PostForm,
     PostDeleteConfirmForm,
@@ -16,14 +16,39 @@ from first.forms import (
 
 def post_list(request):
     
+    difficulties = Post.DIFFICULTY_CHOICES
+    selected_difficulty = request.GET.get('difficulty')
+
     posts = Post.objects.prefetch_related("tags")
+
+    if selected_difficulty:
+        posts = posts.filter(difficulty=selected_difficulty)
+
     query = request.GET.get('Search_query')
     if "tag_id" in request.GET:
         posts = posts.filter(tags__id=request.GET["tag_id"])
+    if "tag_name" in request.GET:
+        posts = posts.filter(tags__name=request.GET["tag_name"])
+        
     if query:
         posts = posts.filter(Q(title__icontains=query))
+    tag_id = request.GET.get('tag_id')
+    if tag_id:
+        posts = posts.filter(tags__id=tag_id)
+
+    # tag_filter = request.GET.get('tag_filter')
+    # if tag_filter:
+    #     posts = posts.filter(tags__id=tag_filter)
+    all_tags = Tag.objects.all()
+    selected_tag_id = request.GET.get('tag_id')
+    selected_tag = Tag.objects.get(pk=selected_tag_id) if selected_tag_id else None
         
-    return render(request, 'post_list.html', {'posts': posts})
+    return render(request, 'post_list.html', {
+        'posts': posts, 
+        'difficulties': difficulties, 
+        'selected_difficulty': selected_difficulty, 
+        'all_tags': all_tags,
+        'selected_tag': selected_tag,})
 
 
 def post_detail(request, post_id):
