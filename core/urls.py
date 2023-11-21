@@ -28,6 +28,11 @@ from first.views import (
     post_update,
     post_delete,
     post_comment,
+    learner_list,
+    learner_detail,
+    learner_create,
+    learner_update,
+    learner_delete,
     comment_update,
     comment_delete,
     signup,
@@ -58,6 +63,11 @@ urlpatterns = [
     path('post-update/<int:post_id>', post_update, name='post_update'),
     path('post-delete/<int:post_id>/', post_delete, name='post_delete'),
     path("post-comment/<int:post_id>/", post_comment, name="post_comment"),
+    path('learner-list/', learner_list, name='learner_list'),
+    path('learner-detail/<int:post_id>/', learner_detail, name='learner_detail'),
+    path('learner-create/', learner_create, name='learner_create'),
+    path('learner-update/<int:post_id>', learner_update, name='learner_update'),
+    path('learner-delete/<int:post_id>/', learner_delete, name='learner_delete'),
 
     #使用者帳號查看和編輯
 

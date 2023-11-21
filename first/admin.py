@@ -1,9 +1,15 @@
 from django.contrib import admin
 
-from first.models import Post, Tag, Comment, UserLogin
+from first.models import Post, Learner, Tag, Comment
 # Register your models here.
 
 @admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ("id", "title")
+    search_fields = ("title", "content")
+    list_filter = ("is_public", "tags")
+
+@admin.register(Learner)
 class PostAdmin(admin.ModelAdmin):
     list_display = ("id", "title")
     search_fields = ("title", "content")
@@ -20,6 +26,6 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ("post", "content")
 
 # 2023/06/01
-@admin.register(UserLogin)
-class UserLoginAdmin(admin.ModelAdmin):
-    list_display = ("id", "email", "password")
+# @admin.register(UserLogin)
+# class UserLoginAdmin(admin.ModelAdmin):
+#     list_display = ("id", "email", "password")

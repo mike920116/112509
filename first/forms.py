@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from first.models import Post, Comment, Tag
+from first.models import Post, Comment, Tag, Learner
 
 
 class PostForm(forms.ModelForm):
@@ -13,13 +13,28 @@ class PostForm(forms.ModelForm):
         empty_label="Select a Tag",
         required=False,
     )
-
+        
 class PostDeleteConfirmForm(forms.Form):
     check = forms.BooleanField(
          required=True,
         label="你確定要刪除這篇文章嗎？真的會消失喔！！！",
     )
 
+class LearnerForm(forms.ModelForm):
+    class Meta:
+        model = Learner
+        fields = '__all__'
+        # fields = ('title', 'content')
+        tag = forms.ModelChoiceField(
+        queryset=Tag.objects.all(),
+        empty_label="Select a Tag",
+        required=False,
+    )
+class LearnerDeleteConfirmForm(forms.Form):
+    check = forms.BooleanField(
+         required=True,
+        label="你確定要刪除這篇文章嗎？真的會消失喔！！！",
+    )
 
 class CommentForm(forms.ModelForm):
     class Meta:

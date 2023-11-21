@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="row">
+  <div class="col">
+    <h1>教材專區</h1>
+  </div>
+  <div class="col text-end">
+    <a class="btn btn-outline-success" href="{% url 'learner_create' %}">發出新教材</a>
+  </div>
+  <form class="d-flex" method="GET" action="{% url 'post_list' %}">
+    <input class="form-control me-2"
+           type="search"
+           placeholder="Search"
+           aria-label="Search"
+           name="Search_query"
+           value="{{ request.GET.Search_query }}">
+           <select class="form-select me-2" name="difficulty">
+            <option value="" {% if not selected_difficulty %}selected{% endif %}>-- 所有難度(預設) --</option>
+            {% for difficulty, label in difficulties %}
+              <option value="{{ difficulty }}" {% if difficulty == selected_difficulty %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
+          <select class="form-select me-2" name="tag_id">
+            <option value="" {% if not selected_tag %}selected{% endif %}>-- 所有標籤(預設) --</option>
+            {% for tag in all_tags %}
+                <option value="{{ tag.id }}" {% if selected_tag and selected_tag.id == tag.id %}selected{% endif %}>{{ tag.name }}</option>
+            {% endfor %}
+        </select>
+
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+</div>
+<div class="row">
+  <div class="col">
+    {% if posts %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">標題</th>
+            <th scope="col">是否公開</th>
+            <th scope="col">難度</th>
+            <th scope="col">標籤</th>
+            <th scope="col">詳情</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for post in posts %}
+            <tr>
+              <td>{{ post.title }}</td>
+              <td>{{ post.is_public }}</td>
+              <td>{{ post.difficulty }}</td>
+              <td>{{ post.tags.all|join:', ' }}</td>
+              <td>
+                <a class="btn btn-secondary btn-sm"
+                   href="{% url 'post_detail' post.id %}">查看</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="text-center">未找到匹配的结果。</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock body %}
