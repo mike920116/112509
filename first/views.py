@@ -43,14 +43,16 @@ def post_list(request):
     #     posts = posts.filter(tags__id=tag_filter)
     all_tags = Tag.objects.all()
     selected_tag_id = request.GET.get('tag_id')
-    selected_tag = Tag.objects.get(pk=selected_tag_id) if selected_tag_id else None
+
+    if selected_tag_id:
+        posts = posts.filter(tags__id=selected_tag_id)
         
     return render(request, 'post_list.html', {
         'posts': posts, 
         'difficulties': difficulties, 
         'selected_difficulty': selected_difficulty, 
         'all_tags': all_tags,
-        'selected_tag': selected_tag,})
+        })
 
 
 def post_detail(request, post_id):
@@ -62,7 +64,9 @@ def post_detail(request, post_id):
 def post_create(request):
     form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
-        form.save()
+        post = form.save(commit=False)
+        post.user = request.user
+        post.save()
         messages.success(request, '文章建立成功')
         return redirect('post_list')
 
@@ -96,6 +100,7 @@ def post_comment(request, post_id):
     if form.is_valid():
         comment = form.save(commit=False)
         comment.post = post
+        comment.user = request.user
         comment.save()
 
         messages.success(request, "留言成功")

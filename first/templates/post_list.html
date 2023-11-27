@@ -5,7 +5,11 @@
       <h1>題庫列表</h1>
     </div>
     <div class="col text-end">
+      {% if user.is_authenticated %}
       <a class="btn btn-outline-success" href="{% url 'post_create' %}">發出新題目</a>
+      {% else %}
+      <p>請先<a href="{% url 'login' %}">登入</a>教師帳號以發佈題目</p>
+      {% endif %}
     </div>
     <form class="d-flex" method="GET" action="{% url 'post_list' %}">
       <input class="form-control me-2"
@@ -21,13 +25,13 @@
               {% endfor %}
             </select>
             <select class="form-select me-2" name="tag_id">
-              <option value="" {% if not selected_tag %}selected{% endif %}>-- 所有標籤(預設) --</option>
+            <option value="1" selected>-- 所有標籤(預設) --</option>
               {% for tag in all_tags %}
-                  <option value="{{ tag.id }}" {% if selected_tag and selected_tag.id == tag.id %}selected{% endif %}>{{ tag.name }}</option>
+                  <option value="{{ tag.id }}" {% if selected_tag.id == tag.id %}selected{% endif %}>{{ tag.name }}</option>
               {% endfor %}
           </select>
 
-      <button class="btn btn-outline-success" type="submit">Search</button>
+      <button class="btn btn-outline-success" type="submit">search</button>
     </form>
   </div>
   <div class="row">
@@ -37,6 +41,7 @@
           <thead>
             <tr>
               <th scope="col">標題</th>
+              <th scope="col">發佈者</th>
               <th scope="col">是否公開</th>
               <th scope="col">難度</th>
               <th scope="col">標籤</th>
@@ -47,6 +52,7 @@
             {% for post in posts %}
               <tr>
                 <td>{{ post.title }}</td>
+                <td>{% if post.user %} {{ post.user.username }} {% endif %}</td>
                 <td>{{ post.is_public }}</td>
                 <td>{{ post.difficulty }}</td>
                 <td>{{ post.tags.all|join:', ' }}</td>

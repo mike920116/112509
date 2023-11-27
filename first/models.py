@@ -1,6 +1,8 @@
 #當你在 models.py 文件中定義或更改模型後，使用 makemigrations 和 migrate 命令，Django 將同步這些更改到資料庫。
 
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 
@@ -9,6 +11,7 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField(max_length=500)
     is_public = models.BooleanField(default=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     DIFFICULTY_CHOICES = [
         ('easy', 'Easy'),
@@ -69,6 +72,8 @@ class Comment(models.Model):
     #---------------#TextField多行文字
     content = models.TextField(max_length=500)
     post = models.ForeignKey(to = Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+
 
     # 自動產生的欄位
     # post_id => 代表管連到的 Post 的 PK （<fk>_id）

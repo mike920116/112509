@@ -8,6 +8,7 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = '__all__'
         # fields = ('title', 'content')
+        exclude = ("user",)
         tag = forms.ModelChoiceField(
         queryset=Tag.objects.all(),
         empty_label="Select a Tag",
@@ -17,7 +18,7 @@ class PostForm(forms.ModelForm):
 class PostDeleteConfirmForm(forms.Form):
     check = forms.BooleanField(
          required=True,
-        label="你確定要刪除這篇文章嗎？真的會消失喔！！！",
+        label="你確定要刪除這篇題目嗎？真的會消失喔！！！",
     )
 
 class LearnerForm(forms.ModelForm):
@@ -40,7 +41,7 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         # fields = "__all__"
-        exclude = ("post",)
+        exclude = ("post", "user")
 
 class CommentDeleteConfirmForm(forms.Form):
     check = forms.BooleanField(

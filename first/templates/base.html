@@ -15,6 +15,10 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
+        <img src="{% static 'images/LOGO.png' %}"
+                         class="rounded-circle"
+                         width="40"
+                         height="40">
         <li class="nav-item">
           <a class="navbar-brand mb-0 h1"
              class="nav-link"
@@ -96,8 +100,7 @@
                          height="30">
                   {% endif %}
                 {% else %}
-                  <!-- Display default username if not authenticated -->
-                  DefaultUsername
+                  未登入帳號
                 {% endif %}
               </a>
               <ul class="dropdown-menu dropdown-menu-end right-aligned shadow bg-white"
