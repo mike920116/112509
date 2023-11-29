@@ -37,6 +37,7 @@ from first.views import (
     comment_delete,
     signup,
     login,
+    profile,
     
     logout,
 )
@@ -53,6 +54,7 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     # 使用者登入畫面
     path('login/', login, name='login'),
+    path('profile/', profile, name='profile'),
     path('add/<int:n1>/<int:n2>/', add),
     path('minus/<int:n1>/<int:n2>/', minus),
     path('multiplied_by/<int:n1>/<int:n2>/', multiplied_by),

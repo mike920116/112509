@@ -63,7 +63,7 @@
     <div class="row mt-2">
       <div class="col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
         <div class="card">
-          <h6 class="card-header">第 {{ forloop.counter0 }} 樓{% if comment.user %} <{{ comment.user.username }}> {% endif %}</h6>
+          <h6 class="card-header">第 {{ forloop.counter0 }} 樓{% if comment.user %} {{ comment.user.username }} {% endif %}</h6>
           <div class="card-body">
             <p class="card-text">
               {{ comment.content }}

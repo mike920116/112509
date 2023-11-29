@@ -4,8 +4,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.db.models import Q
+from django.contrib.auth.models import User
 
-from first.models import Post, Comment, Tag, Learner
+from first.models import Post, Comment, Tag, Learner, Signup
 from first.forms import (
     PostForm,
     PostDeleteConfirmForm,
@@ -13,7 +14,8 @@ from first.forms import (
     LearnerDeleteConfirmForm,
     CommentForm,
     CommentDeleteConfirmForm,
-    SignupForm
+    SignupForm,
+    ProfileForm
 )
 
 def post_list(request):
@@ -64,7 +66,7 @@ def post_detail(request, post_id):
 def post_create(request):
     form = PostForm(request.POST or None, request.FILES or None)
     if form.is_valid():
-        post = form.save(commit=False)
+        post = form.save(commit=True)
         post.user = request.user
         post.save()
         messages.success(request, '文章建立成功')
@@ -224,11 +226,36 @@ def signup(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
             raw_password = form.cleaned_data.get('password1')
+            is_teacher = form.cleaned_data.get('is_teacher')
+            gmail = form.cleaned_data.get('gmail')
             user = authenticate(username=username, password=raw_password)
             login(request)
             print("save hello")
             return redirect('login')  # 將跳轉到主畫面
+            
+        
+        if is_teacher and gmail:
+                # Query the database to check if the provided Gmail exists
+                if Signup.objects.filter(gmail=gmail).exists():
+                    # Save the user with the new fields
+                    user = form.save(commit=False)
+                    user.is_teacher = True
+                    user.save()
+
+                    # Additional logic if needed
+
+                    messages.success(request, '註冊成功')
+                    return redirect('login')
+                else:
+                    messages.error(request, '查無此教師帳戶!!')
+        else:
+                # Save the user without the teacher-specific fields
+            form.save()
+
+            messages.success(request, '註冊成功')
+            return redirect('login')
     else:
         form = SignupForm()
     
@@ -271,3 +298,27 @@ def login(request):
 def logout(request):
     auth_logout(request)
     return redirect('login')
+
+def profile(request):
+    return render(request, 'profile.html')
+    # user_profile = request.user.userprofile
+    # if request.method == 'POST':
+    #     form = ProfileForm(request.POST, instance=user_profile)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('profile')
+    # else:
+    #     form = ProfileForm(instance=user_profile)
+
+    # return render(request, 'profile.html', {'form': form})
+    # -------------------------------------------------------------
+    # user_profile = get_object_or_404(User, user=request.user)
+    # form = ProfileForm(instance=user_profile)
+
+    # if request.method == 'POST':
+    #     form = ProfileForm(request.POST, instance=user_profile)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('profile')
+    
+    # return render(request, 'profile.html', {'form': form, 'user_profile': user_profile})

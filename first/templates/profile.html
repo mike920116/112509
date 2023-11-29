@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+  <div class="row">
+    <div class="col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+ 
+ 
+      <div>
+        <style>h1{
+            font-size: 28px; 
+            color:#838282; 
+            text-align: center;}
+        </style>
+        <h1>不要心灰意code</h1>
+      </div>
+      <div class="col">
+        <h1>題庫列表</h1>
+      </div>
+      <div class="col text-end">
+        {% if user.avatar %}
+          <img src="{{ user.avatar.url }}"
+               alt="User Avatar"
+               class="rounded-circle"
+               width="30"
+               height="30">
+        {% else %}
+          <img src="{% static 'images/anonymous.png' %}"
+               alt="Default Avatar"
+               class="rounded-circle"
+               width="30"
+               height="30">
+        {% endif %}
+        <p>帳戶名稱: {{ user.username }}</p>
+        {% comment %} <p>帳戶身分: {% if user.profile.is_teacher %}老師{% else %}學生{% endif %}</p> {% endcomment %}
+        <p>帳戶身分: 學生</p>
+        <p>帳戶綁定的gmail: {{ user.email }}</p>
+        <p>密碼: *********</p>
+
+        <!-- Add other fields as needed -->
+
+        <div>
+          <button onclick="editField('username')">編輯</button>
+          <!-- Add similar buttons for other fields -->
+        </div>
+
+        <!-- Submit and Cancel Buttons -->
+        <div>
+          <button onclick="submitChanges()">提交變更</button>
+          <button onclick="cancelChanges()">取消修改</button>
+        </div>
+
+        {% comment %} <script>
+  function editField(fieldName) {
+      var password = prompt("請輸入當前密碼以進行設定:");
+      if (password) {
+          // Use AJAX to send the password to the backend for verification
+          // Implement this part using your preferred method (e.g., jQuery.ajax or fetch API)
+          // Upon successful verification, allow the user to edit the field
+      }
+  }
+
+  function submitChanges() {
+      // Implement the logic to submit changes to the backend (e.g., using AJAX)
+  }
+
+  function cancelChanges() {
+      // Implement the logic to cancel changes (e.g., reset the form fields)
+  }
+        </script> {% endcomment %}
+      {% endblock body %}

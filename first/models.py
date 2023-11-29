@@ -42,8 +42,6 @@ class Learner(models.Model):
     content = models.TextField(max_length=500)
     is_public = models.BooleanField(default=True)
 
-    is_public = models.BooleanField(default=True)
-
     DIFFICULTY_CHOICES = [
         ('easy', 'Easy'),
         ('medium', 'Medium'),
@@ -97,6 +95,18 @@ class Signup(models.Model):
     uname = models.CharField(max_length=100)
     email = models.EmailField()
     password = models.CharField(max_length=100)  # 注意：實際應用中應使用加密的密碼存儲方式
+    is_teacher = models.BooleanField(default=False)
+    gmail = models.EmailField(blank=True, null=True)
 
     def __str__(self):
         return self.fname
+    
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to='avatars/', default='avatars/default_avatar.png')
+    account_type = models.CharField(max_length=100, default='學生')
+    gmail = models.EmailField()
+    private_password = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return self.user.username

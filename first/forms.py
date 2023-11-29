@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from first.models import Post, Comment, Tag, Learner
+from first.models import Post, Comment, Tag, Learner, UserProfile
 
 
 class PostForm(forms.ModelForm):
@@ -50,6 +50,15 @@ class CommentDeleteConfirmForm(forms.Form):
     )
 
 class SignupForm(forms.ModelForm):
+    is_teacher = forms.BooleanField(required=False)
+    gmail = forms.EmailField(required=False)
+    
     class Meta:
         model = User
         fields = "__all__"
+
+class ProfileForm(forms.ModelForm):
+    
+    class Meta:
+        model = UserProfile
+        fields = ['avatar', 'account_type', 'gmail', 'private_password']
