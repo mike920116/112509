@@ -46,7 +46,8 @@ from first.views import (
 admin.site.site_header = '管理員後台'
 admin.site.site_title = '管理員後台'
 admin.site.index_title = '網站管理'
-admin.site.unregister(Group)
+# 羿安：如果不需要用時可以取消註解
+# admin.site.unregister(Group)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

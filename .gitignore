@@ -3,7 +3,7 @@
 # 2023/5/6表示staticfiles資料夾的東西不要備份
 
 staticfiles
-media
+
 
 core/__pycache__
 first/__pycache__
