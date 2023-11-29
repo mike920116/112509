@@ -25,8 +25,8 @@
               {% endfor %}
             </select>
             <select class="form-select me-2" name="tag_id">
-            <option value="1" selected>-- 所有標籤(預設) --</option>
-              {% for tag in tags %}
+            <option value="1" {% if not selected_tag %}selected{% endif %}>-- 所有標籤(預設) --</option>
+              {% for tag in all_tags %}
                   <option value="{{ tag.id }}" {% if selected_tag.id == tag.id %}selected{% endif %}>{{ tag.name }}</option>
               {% endfor %}
           </select>
