@@ -2,52 +2,78 @@
 {% load static %}
 {% block body %}
   <div class="row">
-    <div class="col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <div class="col-sm-12 col-md-12 offset-md-2 col-lg-6 offset-lg-3">
  
  
       <div>
-        <style>h1{
-            font-size: 28px; 
+        <style>
+          h1{
+            font-size: 30px; 
             color:#838282; 
             text-align: center;}
+
+        .SignupBox p{
+          margin: 0;
+          padding: 0;
+          font-weight: bold;
+          font-size:18px;
+          }
         </style>
         <h1>不要心灰意code</h1>
       </div>
       <div class="col">
-        <h1>題庫列表</h1>
+        <h1>帳戶管理</h1>
       </div>
-      <div class="col text-end">
-        {% if user.avatar %}
-          <img src="{{ user.avatar.url }}"
-               alt="User Avatar"
-               class="rounded-circle"
-               width="30"
-               height="30">
-        {% else %}
-          <img src="{% static 'images/anonymous.png' %}"
-               alt="Default Avatar"
-               class="rounded-circle"
-               width="30"
-               height="30">
-        {% endif %}
-        <p>帳戶名稱: {{ user.username }}</p>
+      <div class="row">
+      <div class="col text-start" style="float: left; width: 50%; padding: 10px;">
+        <p style="margin: 0; padding: 0; font-weight: bold; font-size:18px;">當前帳戶名稱</p>
+        <input type="text" id="email" name="email" value="{{ user.username }}" style="width: 100%; padding: 12px; border: 1px solid #ccc; margin-top: 6px; margin-bottom: 16px;" readonly></input>
         {% comment %} <p>帳戶身分: {% if user.profile.is_teacher %}老師{% else %}學生{% endif %}</p> {% endcomment %}
-        <p>帳戶身分: 學生</p>
-        <p>帳戶綁定的gmail: {{ user.email }}</p>
-        <p>密碼: *********</p>
+        <p style="margin: 0; padding: 0; font-weight: bold; font-size:18px;">帳戶身分</p>
+        <input type="text" id="email" name="email" value="學生" style="width: 100%; padding: 12px; border: 1px solid #ccc; margin-top: 6px; margin-bottom: 16px;" readonly></input>
+        <p style="margin: 0; padding: 0; font-weight: bold; font-size:18px;">帳戶綁定的Gmail</p>
+        <input type="text" id="email" name="email" value="112509_newuser@gmail.com" style="width: 100%; padding: 12px; border: 1px solid #ccc; margin-top: 6px; margin-bottom: 16px;" readonly></input>
+        {% comment %} <p>帳戶綁定的gmail: {{ user.email }}</p> {% endcomment %}
+        <p style="margin: 0; padding: 0; font-weight: bold; font-size:18px;">帳戶密碼</p>
+        <input type="text" id="email" name="email" value="*********" style="width: 100%; padding: 12px; border: 1px solid #ccc; margin-top: 6px; margin-bottom: 16px;" readonly></input>
 
         <!-- Add other fields as needed -->
 
-        <div>
-          <button onclick="editField('username')">編輯</button>
+        {% comment %} <div>
+          <button class="btn btn-outline-success" onclick="editField('username')">編輯資料</button>
           <!-- Add similar buttons for other fields -->
-        </div>
+        </div> {% endcomment %}
 
         <!-- Submit and Cancel Buttons -->
         <div>
-          <button onclick="submitChanges()">提交變更</button>
-          <button onclick="cancelChanges()">取消修改</button>
+          <button class="btn btn-outline-success" onclick="editField('username')">編輯資料</button>
+          <button class="btn btn-outline-success" onclick="submitChanges()">提交變更</button>
+          <button class="btn btn-outline-success" onclick="cancelChanges()">取消修改</button>
         </div>
+      </div>
+
+      <div class="col text-center" style="float: left; width: 50%; padding: 10px;">
+        {% if user.avatar %}
+              <img src="{{ user.avatar.url }}"
+                   alt="User Avatar"
+                   class="rounded-circle"
+                   width="200"
+                   height="200">
+            {% else %}
+              <img src="{% static 'images/anonymous.png' %}"
+                   alt="Default Avatar"
+                   class="rounded-circle"
+                   width="200"
+                   height="200">
+            {% endif %}
+
+            <div>
+              <button class="btn btn-outline-success" onclick="editField('username')">編輯頭像</button>
+              <!-- Add similar buttons for other fields -->
+            </div>
+      </div>
+    </div>
+
 
         {% comment %} <script>
   function editField(fieldName) {
