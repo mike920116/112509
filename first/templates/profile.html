@@ -32,7 +32,7 @@
         <p style="margin: 0; padding: 0; font-weight: bold; font-size:18px;">帳戶身分</p>
         <input type="text" id="email" name="email" value="學生" style="width: 100%; padding: 12px; border: 1px solid #ccc; margin-top: 6px; margin-bottom: 16px;" readonly></input>
         <p style="margin: 0; padding: 0; font-weight: bold; font-size:18px;">帳戶綁定的Gmail</p>
-        <input type="text" id="email" name="email" value="112509_newuser@gmail.com" style="width: 100%; padding: 12px; border: 1px solid #ccc; margin-top: 6px; margin-bottom: 16px;" readonly></input>
+        <input type="text" id="email" name="email" value="newuser@gmail.com" style="width: 100%; padding: 12px; border: 1px solid #ccc; margin-top: 6px; margin-bottom: 16px;" readonly></input>
         {% comment %} <p>帳戶綁定的gmail: {{ user.email }}</p> {% endcomment %}
         <p style="margin: 0; padding: 0; font-weight: bold; font-size:18px;">帳戶密碼</p>
         <input type="text" id="email" name="email" value="*********" style="width: 100%; padding: 12px; border: 1px solid #ccc; margin-top: 6px; margin-bottom: 16px;" readonly></input>
@@ -75,7 +75,7 @@
     </div>
 
 
-        {% comment %} <script>
+         <script>
   function editField(fieldName) {
       var password = prompt("請輸入當前密碼以進行設定:");
       if (password) {
@@ -84,7 +84,7 @@
           // Upon successful verification, allow the user to edit the field
       }
   }
-
+{% comment %}
   function submitChanges() {
       // Implement the logic to submit changes to the backend (e.g., using AJAX)
   }
@@ -93,4 +93,5 @@
       // Implement the logic to cancel changes (e.g., reset the form fields)
   }
         </script> {% endcomment %}
+      </script>
       {% endblock body %}

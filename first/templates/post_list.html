@@ -6,9 +6,9 @@
     </div>
     <div class="col text-end">
       {% if user.is_authenticated %}
-      <a class="btn btn-outline-success" href="{% url 'post_create' %}">發出新題目</a>
+      <a class="btn btn-outline-success" href="{% url 'post_create' %}">發佈新題目</a>
       {% else %}
-      <p>請先<a href="{% url 'login' %}">登入</a>教師帳號以發佈題目</p>
+      <p>請先<a href="{% url 'login' %}">登入</a>教師帳號以發佈新內容</p>
       {% endif %}
     </div>
     <form class="d-flex" method="GET" action="{% url 'post_list' %}">

@@ -69,7 +69,7 @@ def post_create(request):
         post = form.save(commit=True)
         post.user = request.user
         post.save()
-        messages.success(request, '文章建立成功')
+        messages.success(request, '題目建立成功')
         return redirect('post_list')
 
     return render(request, 'post_create.html', {'form': form})
@@ -300,6 +300,8 @@ def logout(request):
     return redirect('login')
 
 def profile(request):
+    if request.method == 'GET':
+        messages.success(request, "已成功提交變更")
     return render(request, 'profile.html')
     # user_profile = request.user.userprofile
     # if request.method == 'POST':

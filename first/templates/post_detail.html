@@ -38,10 +38,10 @@
           </p>
         </div>
         <div class="card-footer text-end">
-          {% comment %}  
-          <a href="{% url 'post_update' post.id %}" class="card-link">編輯</a>
-          <a href="{% url 'post_delete' post.id %}" class="card-link">刪除</a>
-          {% endcomment %}
+
+          {% comment %} <a href="{% url 'post_update' post.id %}" class="card-link">編輯</a>
+          <a href="{% url 'post_delete' post.id %}" class="card-link">刪除</a> {% endcomment %}
+        
           {% if user.is_authenticated %}
           <a href="{% url 'post_comment' post.id %}" class="card-link">留言</a>
           {% else %}
@@ -70,8 +70,10 @@
             </p>
           </div>
           <div class="card-footer text-end">
-          {% comment %} <a href="{% url 'post_update' post.id %}" class="card-link">編輯</a>
-          <a href="{% url 'post_delete' post.id %}" class="card-link">刪除</a> {% endcomment %}
+          {% if comment.user == request.user %}
+          <a href="{% url 'post_update' post.id %}" class="card-link">編輯</a>
+          <a href="{% url 'post_delete' post.id %}" class="card-link">刪除</a>
+          {% endif %}
           </div>
         </div>
       </div>
