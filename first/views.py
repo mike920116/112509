@@ -25,35 +25,30 @@ def post_list(request):
 
     posts = Post.objects.prefetch_related("tags")
 
-    if selected_difficulty:
-        posts = posts.filter(difficulty=selected_difficulty)
-
     query = request.GET.get('Search_query')
-    if "tag_id" in request.GET:
+    selected_tag_id = request.GET.get('tag_id')
+    if "tag_id" in request.GET and request.GET["tag_id"] != 'all':
         posts = posts.filter(tags__id=request.GET["tag_id"])
     if "tag_name" in request.GET:
         posts = posts.filter(tags__name=request.GET["tag_name"])
         
     if query:
         posts = posts.filter(Q(title__icontains=query))
-    tag_id = request.GET.get('tag_id')
-    if tag_id:
-        posts = posts.filter(tags__id=tag_id)
+    if selected_difficulty:
+        posts = posts.filter(difficulty=selected_difficulty)
+    # tag_id = request.GET.get('tag_id')
+    # if tag_id:
+    #     posts = posts.filter(tags__id=tag_id)
 
-    # tag_filter = request.GET.get('tag_filter')
-    # if tag_filter:
-    #     posts = posts.filter(tags__id=tag_filter)
     all_tags = Tag.objects.all()
-    selected_tag_id = request.GET.get('tag_id')
-
-    if selected_tag_id:
-        posts = posts.filter(tags__id=selected_tag_id)
+    selected_tag = Tag.objects.get(pk=selected_tag_id) if "tag_id" in request.GET and request.GET["tag_id"] != 'all' and selected_tag_id else None
         
     return render(request, 'post_list.html', {
         'posts': posts, 
         'difficulties': difficulties, 
         'selected_difficulty': selected_difficulty, 
         'all_tags': all_tags,
+        'selected_tag': selected_tag,
         })
 
 
