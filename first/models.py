@@ -83,23 +83,22 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
-class UserLogin(models.Model):
-    email = models.EmailField()
-    password = models.CharField(max_length=100)
+# class UserLogin(models.Model):
+#     email = models.EmailField()
+#     password = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.email
+#     def __str__(self):
+#         return self.email
     
-class Signup(models.Model):
-    fname = models.CharField(max_length=100)
-    uname = models.CharField(max_length=100)
-    email = models.EmailField()
-    password = models.CharField(max_length=100)  # 注意：實際應用中應使用加密的密碼存儲方式
-    is_teacher = models.BooleanField(default=False)
-    gmail = models.EmailField(blank=True, null=True)
+# class Signup(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     email = models.EmailField()
+#     password = models.CharField(max_length=100)  # 注意：實際應用中應使用加密的密碼存儲方式
+#     is_teacher = models.BooleanField(default=False)
+#     gmail = models.EmailField(blank=True, null=True)
 
-    def __str__(self):
-        return self.fname
+#     def __str__(self):
+#         return self.user.username
     
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

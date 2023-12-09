@@ -72,7 +72,7 @@
     </form>
   
    
-    <script>
+    {% comment %} <script>
       var form = document.querySelector('form');
       form.addEventListener('submit', function(event) {
         var username = document.querySelector('#username').value;
@@ -126,7 +126,7 @@
         return emailRegex.test(email);
       }
 
-    </script>
+    </script> {% endcomment %}
     
     
   </div>

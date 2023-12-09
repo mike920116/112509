@@ -50,7 +50,7 @@
         </div>
 
     </div>
-    <script>
+    {% comment %} <script>
         $(document).ready(function(){
             if (localStorage.checkbox && localStorage.checkbox !== '') {
                 $('#remember-me').attr('checked', 'checked');
@@ -60,5 +60,5 @@
                 $('#email').val('');
             }
         });
-    </script>
+    </script> {% endcomment %}
 {% endblock body %}

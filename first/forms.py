@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from first.models import Post, Comment, Tag, Learner, UserProfile
 
@@ -49,13 +50,14 @@ class CommentDeleteConfirmForm(forms.Form):
         label="你確定要刪除這則留言嗎？真的會消失喔！！！",
     )
 
-class SignupForm(forms.ModelForm):
+class SignupForm(UserCreationForm):
+    email = forms.EmailField(required=True)
     is_teacher = forms.BooleanField(required=False)
     gmail = forms.EmailField(required=False)
     
     class Meta:
         model = User
-        fields = "__all__"
+        fields = ['username', 'email', 'password1', 'password2']
 
 class ProfileForm(forms.ModelForm):
     
