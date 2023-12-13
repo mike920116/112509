@@ -4,8 +4,11 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.db.models import Q
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
+from django.shortcuts import get_object_or_404
+import os
 
-from first.models import Post, Comment, Tag, Learner
+from first.models import Post, Comment, Tag, Learner, UserProfile
 from first.forms import (
     PostForm,
     PostDeleteConfirmForm,
@@ -14,7 +17,8 @@ from first.forms import (
     CommentForm,
     CommentDeleteConfirmForm,
     SignupForm,
-    ProfileForm
+    UserProfileUpdateForm
+    # ProfileForm
 )
 
 def post_list(request):
@@ -220,12 +224,13 @@ def signup(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             user = form.save()
-            auth_login(request, user)
+            # password1 = form.cleaned_data['password1']
+            # password=make_password(password1)
             # signup_instance = Signup(user=user)
             # signup_instance.save()
 
             auth_login(request, user)
-            messages.success(request, "Registration successful. You are now logged in.")
+            messages.success(request, "註冊成功!!現在已成功登入。")
             return redirect('post_list')
         # form = UserCreationForm(request.POST)
         # if form.is_valid():
@@ -285,10 +290,10 @@ def login(request):
             if user is not None:
                 # 使用 Django 內建的 login 函數進行登入
                 auth_login(request, user)
-                if remember_me:
-                    request.session.set_expiry(0)  # 設定 session 永久保存
-                else:
-                    request.session.set_expiry(120)  # 設定 session 120 秒後過期
+                # if remember_me:
+                #     request.session.set_expiry(0)  # 設定 session 永久保存
+                # else:
+                #     request.session.set_expiry(120)  # 設定 session 120 秒後過期
                 messages.success(request, "登入成功")
                 #登入後跳去哪個html
                 return redirect('post_list')
@@ -304,10 +309,76 @@ def logout(request):
     auth_logout(request)
     return redirect('login')
 
-def profile(request):
-    if request.method == 'GET':
-        messages.success(request, "已成功提交變更")
-    return render(request, 'profile.html')
+def profile(request, user_id):
+
+    # 1. 檢索User模型實例
+    user_auth = get_object_or_404(User, id=user_id)
+
+    # 2. 獲取欄位的值
+    username = user_auth.username
+    email = user_auth.email
+    password = user_auth.password  
+
+    # 3. 創建UserProfile模型實例
+    user_profile, created = UserProfile.objects.get_or_create(
+        user=user_auth
+        )
+
+    # 4. 設置欄位的值
+    if not created:
+        user_profile.username = username
+        user_profile.email = email
+        user_profile.password = password
+        # messages.success(request, "用戶資料同步完成。")
+
+    # 5. 保存UserProfile透過 user_profile.save()
+    # if request.method == 'POST':
+    #     avatar = request.FILES.get('avatar')
+    #     if avatar:
+    #         user_profile.avatar = avatar
+    #         user_profile.save()
+    #         messages.success(request, "頭像已更新。")
+    if request.method == 'POST':
+        avatar = request.FILES.get('avatar')
+        if avatar:
+            old_user_profile = UserProfile.objects.get(pk=user_profile.pk)
+            if old_user_profile.avatar:
+            # 刪除舊的頭像文件
+                old_user_profile.avatar.delete(save=False)
+            user_profile.avatar = avatar
+            user_profile.save()
+            messages.success(request, "頭像已更新。")
+        form = UserProfileUpdateForm(instance=user_profile)
+
+        if form.is_valid():
+            current_password = form.cleaned_data.get('current_password')
+            if user_auth.check_password(current_password):
+
+                user_auth.username = form.cleaned_data['username']
+                user_auth.email = form.cleaned_data['email']
+                user_auth.set_password(form.cleaned_data['password'])
+                user_auth.save()
+                
+                user_profile = form.save(commit=True)
+                user_profile.user = user_auth
+                user_profile.save()
+
+                auth_login(request, user_auth)
+
+                messages.success(request, "資料已更新。")
+                return redirect('profile', user_id)
+            else:
+                messages.error(request, "當前密碼不正確，請重新輸入。")
+        # else:
+        #     messages.error(request, "表單填寫有誤，請檢查並重新提交。")
+    else:
+        form = UserProfileUpdateForm(instance=user_profile)
+
+    
+    
+    # if request.method == 'GET':
+    #     messages.success(request, "已成功提交變更")
+    return render(request, 'profile.html', {"user_profile": user_profile, 'form': form})
     # user_profile = request.user.userprofile
     # if request.method == 'POST':
     #     form = ProfileForm(request.POST, instance=user_profile)
@@ -329,3 +400,27 @@ def profile(request):
     #         return redirect('profile')
     
     # return render(request, 'profile.html', {'form': form, 'user_profile': user_profile})
+
+
+# def sync_user_data(request, user_id):
+#     # 1. 檢索User模型實例
+#     user_instance = get_object_or_404(User, id=user_id)
+
+#     # 2. 獲取欄位的值
+#     username = user_instance.username
+#     email = user_instance.email
+#     password = user_instance.password  # Note: You may need to handle password hashing properly
+
+#     # 3. 創建UserProfile模型實例
+#     user_profile = UserProfile(user=user_instance)
+
+#     # 4. 設置欄位的值
+#     user_profile.username = username
+#     user_profile.email = email
+#     user_profile.password = password  # Note: You may need to handle password hashing properly
+
+#     # 5. 保存UserProfile模型實例
+#     user_profile.save()
+
+#     messages.success(request, "用戶資料複製完成。")
+#     return redirect('post_list')

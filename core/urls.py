@@ -35,6 +35,9 @@ from first.views import (
     learner_delete,
     comment_update,
     comment_delete,
+
+    # sync_user_data,
+
     signup,
     login,
     profile,
@@ -55,7 +58,7 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     # 使用者登入畫面
     path('login/', login, name='login'),
-    path('profile/', profile, name='profile'),
+    path('profile/<int:user_id>/', profile, name='profile'),
     path('add/<int:n1>/<int:n2>/', add),
     path('minus/<int:n1>/<int:n2>/', minus),
     path('multiplied_by/<int:n1>/<int:n2>/', multiplied_by),
@@ -71,6 +74,8 @@ urlpatterns = [
     path('learner-create/', learner_create, name='learner_create'),
     path('learner-update/<int:post_id>', learner_update, name='learner_update'),
     path('learner-delete/<int:post_id>/', learner_delete, name='learner_delete'),
+
+    # path('sync_user_data/<int:user_id>/', sync_user_data, name='sync_user_data'),
 
     #使用者帳號查看和編輯
 

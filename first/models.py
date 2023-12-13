@@ -1,7 +1,7 @@
 #當你在 models.py 文件中定義或更改模型後，使用 makemigrations 和 migrate 命令，Django 將同步這些更改到資料庫。
 
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 
 
 # Create your models here.
@@ -101,11 +101,14 @@ class Tag(models.Model):
 #         return self.user.username
     
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to='avatars/', default='avatars/default_avatar.png')
-    account_type = models.CharField(max_length=100, default='學生')
-    gmail = models.EmailField()
-    private_password = models.CharField(max_length=100, blank=True, null=True)
-
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    username = models.CharField(max_length=100, default='未登入帳戶')
+    email = models.EmailField()
+    password = models.CharField(max_length=100)
+    avatar = models.ImageField(upload_to="avatars/", null=True, blank=True)
+#     # account_type = models.CharField(max_length=100, default='學生')
+#     gmail = models.EmailField()
+    # private_password = models.CharField(max_length=100, blank=True, null=True)
+    
     def __str__(self):
-        return self.user.username
+        return self.username#.username

@@ -59,8 +59,15 @@ class SignupForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
-class ProfileForm(forms.ModelForm):
-    
+class UserProfileUpdateForm(forms.ModelForm):
+    current_password = forms.CharField(widget=forms.PasswordInput, label='Current Password')
+
     class Meta:
         model = UserProfile
-        fields = ['avatar', 'account_type', 'gmail', 'private_password']
+        fields = ['username', 'email', 'password', 'current_password']
+        widgets = {'password':forms.PasswordInput()}
+# class ProfileForm(forms.ModelForm):
+    
+#     class Meta:
+#         model = UserProfile
+#         fields = ['avatar', 'account_type', 'gmail', 'private_password']
