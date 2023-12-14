@@ -71,8 +71,8 @@
           </div>
           <div class="card-footer text-end">
           {% if comment.user == request.user %}
-          <a href="{% url 'post_update' post.id %}" class="card-link">編輯</a>
-          <a href="{% url 'post_delete' post.id %}" class="card-link">刪除</a>
+          <a href="{% url 'comment_update' comment.id %}" class="card-link">編輯</a>
+          <a href="{% url 'comment_delete' comment.id %}" class="card-link">刪除</a>
           {% endif %}
           </div>
         </div>

@@ -41,6 +41,7 @@ class Learner(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField(max_length=500)
     is_public = models.BooleanField(default=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     DIFFICULTY_CHOICES = [
         ('easy', 'Easy'),
@@ -54,7 +55,7 @@ class Learner(models.Model):
 
     # 2023/5/6
     tags = models.ManyToManyField(to="Tag", blank=True)
-    image = models.ImageField(upload_to="posts/%Y/%m/%d/", null=True, blank=True)
+    image = models.ImageField(upload_to="learners/%Y/%m/%d/", null=True, blank=True)
     video = models.FileField(upload_to="learners/%Y/%m/%d/", null=True, blank=True)
     # null -> 可以存放 null 到資料庫中
     # blank -> 這個欄位是可以不填寫的
@@ -112,3 +113,9 @@ class UserProfile(models.Model):
     
     def __str__(self):
         return self.username#.username
+    
+class LearnerComment(models.Model):
+    #---------------#TextField多行文字
+    content = models.TextField(max_length=500)
+    learner = models.ForeignKey(to = Learner, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)

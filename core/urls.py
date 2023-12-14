@@ -33,8 +33,11 @@ from first.views import (
     learner_create,
     learner_update,
     learner_delete,
+    learner_comment,
     comment_update,
     comment_delete,
+    learnercomment_update,
+    learnercomment_delete,
 
     # sync_user_data,
 
@@ -70,10 +73,11 @@ urlpatterns = [
     path('post-delete/<int:post_id>/', post_delete, name='post_delete'),
     path("post-comment/<int:post_id>/", post_comment, name="post_comment"),
     path('learner-list/', learner_list, name='learner_list'),
-    path('learner-detail/<int:post_id>/', learner_detail, name='learner_detail'),
+    path('learner-detail/<int:learner_id>/', learner_detail, name='learner_detail'),
     path('learner-create/', learner_create, name='learner_create'),
-    path('learner-update/<int:post_id>', learner_update, name='learner_update'),
-    path('learner-delete/<int:post_id>/', learner_delete, name='learner_delete'),
+    path('learner-update/<int:learner_id>', learner_update, name='learner_update'),
+    path('learner-delete/<int:learner_id>/', learner_delete, name='learner_delete'),
+    path("learner-comment/<int:learner_id>/", learner_comment, name="learner_comment"),
 
     # path('sync_user_data/<int:user_id>/', sync_user_data, name='sync_user_data'),
 
@@ -85,4 +89,7 @@ urlpatterns = [
     #--------留言
     path('comment-update/<int:comment_id>', comment_update, name='comment_update'),
     path('comment-delete/<int:comment_id>/', comment_delete, name='comment_delete'),
+
+    path('learnercomment-update/<int:learnercomment_id>', learnercomment_update, name='learnercomment_update'),
+    path('learnercomment-delete/<int:learnercomment_id>/', learnercomment_delete, name='learnercomment_delete'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

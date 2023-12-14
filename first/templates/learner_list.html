@@ -5,9 +5,13 @@
     <h1>教材專區</h1>
   </div>
   <div class="col text-end">
+    {% if user.is_authenticated %}
     <a class="btn btn-outline-success" href="{% url 'learner_create' %}">發出新教材</a>
+      {% else %}
+      <p>請先<a href="{% url 'login' %}">登入</a>教師帳號以發佈新內容</p>
+      {% endif %}
   </div>
-  <form class="d-flex" method="GET" action="{% url 'post_list' %}">
+  <form class="d-flex" method="GET" action="{% url 'learner_list' %}">
     <input class="form-control me-2"
            type="search"
            placeholder="Search"
@@ -32,11 +36,12 @@
 </div>
 <div class="row">
   <div class="col">
-    {% if posts %}
+    {% if learners %}
       <table class="table">
         <thead>
           <tr>
             <th scope="col">標題</th>
+            <th scope="col">發佈者</th>
             <th scope="col">是否公開</th>
             <th scope="col">難度</th>
             <th scope="col">標籤</th>
@@ -44,15 +49,16 @@
           </tr>
         </thead>
         <tbody>
-          {% for post in posts %}
+          {% for learner in learners %}
             <tr>
-              <td>{{ post.title }}</td>
-              <td>{{ post.is_public }}</td>
-              <td>{{ post.difficulty }}</td>
-              <td>{{ post.tags.all|join:', ' }}</td>
+              <td>{{ learner.title }}</td>
+              <td>{% if learner.user %} {{ learner.user.username }} {% endif %}</td>
+              <td>{{ learner.is_public }}</td>
+              <td>{{ learner.difficulty }}</td>
+              <td>{{ learner.tags.all|join:', ' }}</td>
               <td>
                 <a class="btn btn-secondary btn-sm"
-                   href="{% url 'learner_detail' post.id %}">查看</a>
+                   href="{% url 'learner_detail' learner.id %}">查看</a>
               </td>
             </tr>
           {% endfor %}
