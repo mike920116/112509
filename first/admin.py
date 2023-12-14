@@ -19,12 +19,16 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Learner)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("id", "custom_title")
+    # 1214羿安加入使用者名稱
+    list_display = ("id", "custom_title", "custom_user")  # 1214羿安使用自訂標題
     search_fields = ("title", "content")
     list_filter = ("is_public", "tags")
     def custom_title(self, obj):
         return obj.title
     custom_title.short_description = "標題"  # 修改 custom_title 在管理介面中的顯示名稱
+    def custom_user(self, obj):
+        return obj.user
+    custom_user.short_description = "使用者名稱"
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
