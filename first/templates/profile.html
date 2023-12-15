@@ -1,127 +1,90 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block body %}
-  <div class="row">
-    <div class="col-sm-12 col-md-12 offset-md-2 col-lg-6 offset-lg-3">
- 
- 
-      <div>
-        <style>
-          h1{
-            font-size: 30px; 
-            color:#838282; 
-            text-align: center;}
+<div class="row">
+  <div class="col-sm-12 col-md-12 offset-md-2 col-lg-6 offset-lg-3">
+    <div>
+      <style>
+        h1 {
+          font-size: 36px;
+          color: #838282;
+          text-align: center;
+        }
 
-          input{
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            margin-top: 6px;
-            margin-bottom: 16px;
-          }
+        input {
+          width: 100%;
+          padding: 12px;
+          border: 1px solid #ccc;
+          margin-top: 6px;
+          margin-bottom: 16px;
+        }
 
-        .SignupBox p{
+        .SignupBox p {
           margin: 0;
           padding: 0;
           font-weight: bold;
-          font-size:18px;
-          }
-        </style>
-        <h1>不要心灰意code</h1>
-      </div>
-      <div class="col">
-        <h1>帳戶管理</h1>
-      </div>
-      <div class="row">
-      <div class="col text-start" style="float: left; width: 50%; padding: 10px;">
-        <p style="margin: 0; padding: 0; font-weight: bold; font-size:18px;">當前帳戶名稱</p>
-        <input type="text" id="user_name" name="user_name" value="{{ user_profile.username }}" readonly></input>
-        {% comment %} <p>帳戶身分: {% if user.profile.is_teacher %}老師{% else %}學生{% endif %}</p> {% endcomment %}
-        <p style="margin: 0; padding: 0; font-weight: bold; font-size:18px;">帳戶身分</p>
-        <input type="text" id="user_identity" name="user_identity" value="學生" readonly></input>
-        <p style="margin: 0; padding: 0; font-weight: bold; font-size:18px;">帳戶綁定的Gmail</p>
-        <input type="text" id="user_email" name="user_email" value="{{ user_profile.email }}" readonly></input>
-        {% comment %} <p>帳戶綁定的gmail: {{ user.email }}</p> {% endcomment %}
-        <p style="margin: 0; padding: 0; font-weight: bold; font-size:18px;">帳戶密碼</p>
-        <input type="password" id="user_password" name="user_password" value="************" readonly></input>
-
-        <!-- Add other fields as needed -->
-
-        {% comment %} <div>
-          <button class="btn btn-outline-success" onclick="editField('username')">編輯資料</button>
-          <!-- Add similar buttons for other fields -->
-        </div> {% endcomment %}
-
-        <!-- Submit and Cancel Buttons -->
-        <div>
-          <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#editProfileModal">編輯個資</button>
-       </div>
-       
-       <!-- Edit Profile Modal -->
-       <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-           <div class="modal-dialog">
-               <div class="modal-content">
-                   <div class="modal-header">
-                       <h5 class="modal-title" id="editProfileModalLabel">編輯個資</h5>
-                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                   </div>
-                   <div class="modal-body">
-                       <form method="post" action="{% url 'profile' user_id=user_profile.user.id %}">
-                           {% csrf_token %}
-                           {{ form.as_p }}
-                           <button type="submit" class="btn btn-outline-success">提交變更</button>
-                           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">取消修改</button>
-                       </form>
-                   </div>
-               </div>
-           </div>
-       </div>
-      </div>
-
-      <div class="col text-center" style="float: left; width: 50%; padding: 10px;">
-        {% if user_profile.avatar %}
-              <img src="{{ user_profile.avatar.url }}"
-                   alt="User Avatar"
-                   class="rounded-circle"
-                   width="200"
-                   height="200">
-            {% else %}
-              <img src="{% static 'images/anonymous.png' %}"
-                   alt="Default Avatar"
-                   class="rounded-circle"
-                   width="200"
-                   height="200">
-            {% endif %}
-
-            <form method="post" enctype="multipart/form-data">
-              {% csrf_token %}
-              <label for="avatar-upload" class="btn btn-outline-success">編輯頭像</label>
-        <input type="file" id="avatar-upload" name="avatar" accept="image/*" style="display: none;">
-        <button type="submit" class="btn btn-outline-success">提交變更</button>
-              {% comment %} <input type="file" name="avatar" accept="image/*" >
-              <button type="submit" class="btn btn-outline-success">編輯頭像</button> {% endcomment %}
-          </form>
-      </div>
+          font-size: 18px;
+        }
+      </style>
+      <h1>不要心灰意code&nbsp;&nbsp;&nbsp;&nbsp;帳戶管理</h1>
     </div>
 
 
-         <script>
-  function editField(fieldName) {
-      var password = prompt("請輸入當前密碼以進行設定:");
-      if (password) {
+    <div class="col text-center mb-4 mt-4">
+      {% if user_profile.avatar %}
+      <img src="{{ user_profile.avatar.url }}"
+        alt="User Avatar"
+        class="rounded-circle"
+        width="200"
+        height="200">
+      {% else %}
+      <img src="{% static 'images/anonymous.png' %}"
+        alt="Default Avatar"
+        class="rounded-circle"
+        width="200"
+        height="200">
+      {% endif %}
+
+      <form method="post" enctype="multipart/form-data" class="mt-3">
+        {% csrf_token %}
+        <label for="avatar-upload" class="btn btn-outline-secondary">編輯頭像</label>
+        <input type="file" id="avatar-upload" name="avatar" accept="image/*" style="display: none;">
+        <button type="submit" class="btn btn-dark">提交變更</button>
+      </form>
+    </div>
+
+    <div class="row">
+      <div class="col text-start mb-3">
+        <p style="margin: 0; padding: 0; font-weight: bold; font-size: 18px;">當前帳戶名稱</p>
+        <input type="text" id="user_name" name="user_name" value="{{ user_profile.username }}" readonly>
+        <p style="margin: 0; padding: 0; font-weight: bold; font-size: 18px;">帳戶身分</p>
+        <input type="text" id="user_identity" name="user_identity" value="學生" readonly>
+        <p style="margin: 0; padding: 0; font-weight: bold; font-size: 18px;">帳戶綁定的Gmail</p>
+        <input type="text" id="user_email" name="user_email" value="{{ user_profile.email }}" readonly>
+        <p style="margin: 0; padding: 0; font-weight: bold; font-size: 18px;">帳戶密碼</p>
+        <input type="password" id="user_password" name="user_password" value="************" readonly>
+
+        <div>
+          <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editProfileModal">編輯個資</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+      <!-- Modal content -->
+    </div>
+
+    <script>
+      function editField(fieldName) {
+        var password = prompt("請輸入當前密碼以進行設定:");
+        if (password) {
           // Use AJAX to send the password to the backend for verification
           // Implement this part using your preferred method (e.g., jQuery.ajax or fetch API)
           // Upon successful verification, allow the user to edit the field
+        }
       }
-  }
-{% comment %}
-  function submitChanges() {
-      // Implement the logic to submit changes to the backend (e.g., using AJAX)
-  }
-
-  function cancelChanges() {
-      // Implement the logic to cancel changes (e.g., reset the form fields)
-  }
-        </script> {% endcomment %}
-      </script>
-      {% endblock body %}
+    </script>
+  </div>
+</div>
+{% endblock body %}
