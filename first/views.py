@@ -198,6 +198,7 @@ def learner_comment(request, learner_id):
         comment = form.save(commit=False)
         comment.learner = learner
         comment.user = request.user
+        comment.create_times = timezone.now()
         comment.save()
 
         messages.success(request, "留言成功")

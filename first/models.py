@@ -121,3 +121,4 @@ class LearnerComment(models.Model):
     content = models.TextField(max_length=500)
     learner = models.ForeignKey(to = Learner, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    create_times = models.DateTimeField(auto_now_add=True)
