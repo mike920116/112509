@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
 {% block body %}
+
+<style>
+  .my-3 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+</style>
+
   <div class="row">
     <div class="col">
       <h1>題庫列表</h1>
@@ -33,8 +41,8 @@
 
       <button class="btn btn-outline-success" type="submit">search</button>
     </form>
-    <div class="col">
-      <a class="btn btn-outline-primary {% if request.GET.sort_by == 'title_number_desc' %}active{% endif %}"
+    <div class="row my-3">
+      <a class="btn btn btn-outline-secondary {% if request.GET.sort_by == 'title_number_desc' %}active{% endif %}"
          href="{% url 'post_list' %}?{% if request.GET.sort_by == 'title_number_desc' %}sort_by=title_number_asc{% else %}sort_by=title_number_desc{% endif %}">
         標題數字排序
       </a>
