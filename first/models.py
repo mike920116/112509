@@ -72,6 +72,8 @@ class Comment(models.Model):
     content = models.TextField(max_length=500)
     post = models.ForeignKey(to = Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    # times = models.DateTimeField(auto_now_add=True)
+    create_times = models.DateTimeField(auto_now_add=True)
 
 
     # 自動產生的欄位

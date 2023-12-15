@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 import os
 
 from first.models import Post, Comment, Tag, Learner, UserProfile, LearnerComment
@@ -32,6 +33,12 @@ def post_list(request):
     query = request.GET.get('Search_query')
     selected_difficulty = request.GET.get('difficulty')
     selected_tag_id = request.GET.get('tag_id')
+
+    sort_by = request.GET.get('sort_by', None)
+    if sort_by == 'title_number_asc':
+        posts = posts.order_by('title')
+    elif sort_by == 'title_number_desc':
+        posts = posts.order_by('-title')
 
     if "tag_id" in request.GET and request.GET["tag_id"] != 'all':
         posts = posts.filter(tags__id=request.GET["tag_id"])
@@ -104,6 +111,7 @@ def post_comment(request, post_id):
         comment = form.save(commit=False)
         comment.post = post
         comment.user = request.user
+        comment.create_times = timezone.now()
         comment.save()
 
         messages.success(request, "留言成功")

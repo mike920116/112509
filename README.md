@@ -26,6 +26,8 @@ https://docs.google.com/presentation/d/1BZkNn-r-JS2RVdJm6Q-kase9S6ClFJqt/edit?us
 
 依照 migrations 建立資料庫：`python manage.py migrate`
 
+顯示目前migrations的狀態`python manage.py showmigrations`
+
 建立超級使用者：`python manage.py createsuperuser`
 
 安裝套件到 dev 這個 group 中：`poetry add --group dev <package name>` (例如：`ipython`)
